@@ -58,4 +58,7 @@ docs:
 deploy:
 	@if [ -e "bin/deploy.sh" ]; then ./bin/deploy.sh; else echo "\033[32msecret deploy.sh file :)\033[0m"; fi
 
-.PHONY: help tests jslint run build docs deploy
+dev:
+	./bin/setup.sh
+
+.PHONY: help tests jslint run build docs deploy dev
