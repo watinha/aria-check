@@ -8,6 +8,4 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 
-$JSLINTR data/
-$JSLINTR lib/
-$JSLINTR test/
+$JSLINTR ./
