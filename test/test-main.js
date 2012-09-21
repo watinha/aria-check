@@ -1,6 +1,3 @@
-var exports = exports,
-    require = require;
-
 (function () {
     'use strict';
     var main = require("main");
@@ -9,4 +6,3 @@ var exports = exports,
         test.pass("Unit test running!");
     };
 }());
-

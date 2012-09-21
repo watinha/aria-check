@@ -24,3 +24,12 @@ else
     echo "addon-sdk... \033[31mNOT ok!\033[0m"
     echo " - You should install addon-sdk"
 fi
+
+JSLINTR=`which jslintr`
+if [ $? -ne 0 ]; then
+    echo "jslintr...   \033[31mNOT ok!\033[0m"
+    echo " - JSlintr is necessary for this so install it"
+    echo " - more info on: https://github.com/ccoria/JSLintr"
+else
+    echo "jslintr...   \033[32mOK!\033[0m"
+fi
