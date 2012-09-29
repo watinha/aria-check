@@ -15,4 +15,6 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi
 
-$JSLINTR ./
+$JSLINTR test/
+$JSLINTR lib/
+$JSLINTR data/tests/
