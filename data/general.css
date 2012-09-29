@@ -1,0 +1,27 @@
+div.codebox {
+  background-color: #E0E0E0;
+  color: black;
+  font-family: monospace;
+  padding: .5em;
+  margin: .5em;
+  border: black medium solid;
+}
+
+h2.nav {
+  position: absolute;
+  left: -200em;
+  top: -20em;
+}
+
+ul.nav {
+  margin: 0;
+  padding: 0;
+}
+
+ul.nav li {
+  display: inline;
+  list-style: none;
+  padding-right: 1em;
+}
+
+

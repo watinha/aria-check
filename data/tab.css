@@ -1,0 +1,79 @@
+.tabpanel {
+	margin: 20px;
+	padding: 0;
+	height: 1%; /* IE fix for float bug */
+}
+.tablist {
+	margin: 0 0px;
+	padding: 0;
+	list-style: none;
+}
+
+.tab {
+
+	margin: .2em 1px 0 0;
+	padding: 10px;
+	height: 1em;
+	font-weight: bold;
+	background-color: #ec9;
+
+	border: 1px solid black;
+	-webkit-border-radius-topright: 5px;
+	-webkit-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-radius-topright: 5px;
+	border-radius-topleft: 5px;
+
+	float: left;
+	display: inline; /* IE float bug fix */
+}
+
+.panel {
+	clear: both;
+	display: block;
+	margin: 0 0 0 0;
+	padding: 10px;
+	width: 600px;
+	border: 1px solid black;
+
+	-webkit-border-radius-topright: 10px;
+	-webkit-border-radius-bottomleft: 10px;
+	-webkit-border-radius-bottomright: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	-moz-border-radius-bottomright: 10px;
+	border-radius-topright: 10px;
+	border-radius-bottomleft: 10px;
+	border-radius-bottomright: 10px;
+}
+
+ul.controlList {
+	list-style-type: none;
+}
+
+li.selected {
+	color: black;
+	background-color: #fff;
+	border-bottom: 1px solid white;
+}
+
+.focus {
+	margin-top: 0;
+	height: 1.2em;
+}
+
+.accordian {
+	margin: 0;
+	float: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	width: 600px;
+}
+
+.hidden {
+	position: absolute;
+	left: -300em;
+	top: -30em;
+}
