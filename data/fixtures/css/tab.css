@@ -18,12 +18,6 @@
 	background-color: #ec9;
 
 	border: 1px solid black;
-	-webkit-border-radius-topright: 5px;
-	-webkit-border-radius-topleft: 5px;
-	-moz-border-radius-topright: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-radius-topright: 5px;
-	border-radius-topleft: 5px;
 
 	float: left;
 	display: inline; /* IE float bug fix */
@@ -36,16 +30,6 @@
 	padding: 10px;
 	width: 600px;
 	border: 1px solid black;
-
-	-webkit-border-radius-topright: 10px;
-	-webkit-border-radius-bottomleft: 10px;
-	-webkit-border-radius-bottomright: 10px;
-	-moz-border-radius-topright: 10px;
-	-moz-border-radius-bottomleft: 10px;
-	-moz-border-radius-bottomright: 10px;
-	border-radius-topright: 10px;
-	border-radius-bottomleft: 10px;
-	border-radius-bottomright: 10px;
 }
 
 ul.controlList {
@@ -66,9 +50,6 @@ li.selected {
 .accordian {
 	margin: 0;
 	float: none;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	border-radius: 0;
 	width: 600px;
 }
 

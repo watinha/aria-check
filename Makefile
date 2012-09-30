@@ -24,7 +24,7 @@ help:
 
 tests:
 	@if [ $(IS_CFX_SET) ]; then\
-		cfx test;\
+		cfx test | sed "s/console: \[JavaScript Warning: .*\]//";\
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
