@@ -20,4 +20,38 @@
         assert.assertEqual(120, app.widget.width);
     };
 
+    exports["test init should set page mod, including jasmine in pages with #aria-check"] = function (assert) {
+        var tabs = require("tabs"),
+            self = require("self"),
+            app = require("app").create_app();
+        app.init();
+        assert.waitUntilDone(30000);
+        tabs.open({
+            url: self.data.url("fixtures/tabpanel_perfect.html"),
+            onReady: function (tab) {
+                var worker;
+
+                app.run_aria_check();
+
+                worker = tab.attach({
+                    contentScript: "function waitForReporter () {" +
+                                   "    var reporter = document.querySelector(\"#HTMLReporter\");" +
+                                   "    if (reporter) {" +
+                                   "        self.port.emit(\"supimpa\", reporter.innerHTML);" +
+                                   "        return ;" +
+                                   "    } else {" +
+                                   "        setTimeout(waitForReporter, 1000);" +
+                                   "    }" +
+                                   "}" +
+                                   "setTimeout(waitForReporter, 1000);",
+                    contentScriptWhen: "ready"
+                });
+                worker.port.on("supimpa", function (data) {
+                    assert.pass("");
+                    assert.done();
+                });
+            }
+        });
+    };
+
 }());
