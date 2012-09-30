@@ -1,8 +1,9 @@
 {
-  "name": "aria-check",
-  "fullName": "aria-check",
-  "description": "A Firefox Addon that helps you implement ARIA conformant widgets",
-  "author": "Willian Massami Watanabe",
-  "license": "MPL 2.0",
-  "version": "0.1"
+    "name": "aria-check", 
+    "license": "MPL 2.0", 
+    "author": "Willian Massami Watanabe", 
+    "version": "0.1", 
+    "fullName": "aria-check", 
+    "id": "jid1-ArbH6YvnfHd8Vw", 
+    "description": "A Firefox Addon that helps you implement ARIA conformant widgets"
 }
