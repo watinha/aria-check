@@ -20,7 +20,7 @@
 
         activation_widget.clear_instance(); // test method for clearing singleton instance
         widget_instance = activation_widget.create_instance(widget_mock, function () {
-            callbackHandler.callback()
+            callbackHandler.callback();
         });
         widget_instance.onClick.call({});
         assert.assert(callbackCalled);
