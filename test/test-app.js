@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    exports["test createApp should be a singleton for widgets objects"] = function (assert) {
+    exports["test init should be a singleton for widgets objects"] = function (assert) {
         var app1 = require("app").createApp(),
             app2 = require("app").createApp();
 
@@ -19,4 +19,5 @@
         assert.assertEqual("aria-check", app.widget.label);
         assert.assertEqual(120, app.widget.width);
     };
+
 }());
