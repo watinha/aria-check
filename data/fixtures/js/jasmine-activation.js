@@ -1,7 +1,6 @@
 (function() {
     "use strict";
 
-
     describe("Something cool", function() {
         it("should be OK", function() {
             expect(true).toBe(true);
@@ -20,8 +19,14 @@
     };
 
     (function () {
-        jasmineEnv.execute();
-        document.querySelector("#HTMLReporter").style.display = "none";
+        self.port.on("jasmineCSSURL", function (data) {
+            var link = document.createElement("link");
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.href = data;
+            document.body.appendChild(link);
+            jasmineEnv.execute();
+        });
     }());
 })();
 

@@ -24,8 +24,8 @@
         var app = require("app").create_app(),
             self = require("self");
         app.init();
-        assert.assertEqual(700, app.panel.width);
-        assert.assertEqual(700, app.panel.height);
+        assert.assertEqual(350, app.panel.width);
+        assert.assertEqual(350, app.panel.height);
         assert.assertEqual(self.data.url("console_panel.html"), app.panel.contentURL);
     },
 
@@ -36,7 +36,7 @@
         app.init();
         assert.waitUntilDone(30000);
         tabs.open({
-            url: self.data.url("fixtures/tabpanel_perfect.html"),
+            url: self.data.url("fixtures/tabpanel_dummy.html"),
             onReady: function (tab) {
                 var worker;
 
@@ -46,7 +46,7 @@
                     contentScript: "function waitForReporter () {" +
                                    "    var reporter = document.querySelector(\"#HTMLReporter\");" +
                                    "    if (reporter) {" +
-                                   "        self.port.emit(\"supimpa\", reporter.innerHTML);" +
+                                   "        self.port.emit(\"check_reporter\", document.body.innerHTML);" +
                                    "        return ;" +
                                    "    } else {" +
                                    "        setTimeout(waitForReporter, 1000);" +
@@ -55,7 +55,9 @@
                                    "setTimeout(waitForReporter, 1000);",
                     contentScriptWhen: "ready"
                 });
-                worker.port.on("supimpa", function (data) {
+                worker.port.on("check_reporter", function (data) {
+                    assert.assert(data.search("id=\"HTMLReporter\"") >= 0); // has reporter?
+                    assert.assert(data.search("jasmine.css") >= 0); // has jasmine css
                     assert.pass("");
                     assert.done();
                 });
