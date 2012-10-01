@@ -27,7 +27,7 @@
         assert.assertEqual(350, app.panel.width);
         assert.assertEqual(350, app.panel.height);
         assert.assertEqual(self.data.url("console_panel.html"), app.panel.contentURL);
-    },
+    };
 
     exports["test init should include jasmine in pages"] = function (assert) {
         var tabs = require("tabs"),
