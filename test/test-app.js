@@ -20,7 +20,7 @@
         assert.assertEqual(120, app.widget.width);
     };
 
-    exports["test init should set page mod, including jasmine in pages with #aria-check"] = function (assert) {
+    exports["test init should include jasmine in pages"] = function (assert) {
         var tabs = require("tabs"),
             self = require("self"),
             app = require("app").create_app();
