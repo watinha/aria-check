@@ -20,11 +20,16 @@
 
     (function () {
         self.port.on("jasmineCSSURL", function (data) {
-            var link = document.createElement("link");
-            link.type = "text/css";
-            link.rel = "stylesheet";
-            link.href = data;
-            document.body.appendChild(link);
+            var reporter = document.querySelector("#HTMLReporter");
+            if (reporter) {
+                reporter.parentNode.removeChild(reporter);
+            } else {
+                var link = document.createElement("link");
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = data;
+                document.body.appendChild(link);
+            }
             jasmineEnv.execute();
         });
     }());
