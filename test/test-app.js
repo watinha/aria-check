@@ -20,15 +20,6 @@
         assert.assertEqual(120, app.widget.width);
     };
 
-    exports["test panel should be attached to app and widget"] = function (assert) {
-        var app = require("app").create_app(),
-            self = require("self");
-        app.init();
-        assert.assertEqual(350, app.panel.width);
-        assert.assertEqual(350, app.panel.height);
-        assert.assertEqual(self.data.url("console_panel.html"), app.panel.contentURL);
-    };
-
     exports["test init should include jasmine in pages"] = function (assert) {
         var tabs = require("tabs"),
             self = require("self"),
