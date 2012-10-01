@@ -9,6 +9,7 @@
                     return params;
                 }
             },
+            panel_stub = {},
             callbackCalled = false,
             callbackHandler = {
                 callback: function () {
@@ -19,11 +20,12 @@
             };
 
         activation_widget.clear_instance(); // test method for clearing singleton instance
-        widget_instance = activation_widget.create_instance(widget_mock, function () {
+        widget_instance = activation_widget.create_instance(widget_mock, panel_stub, function () {
             callbackHandler.callback();
         });
         widget_instance.onClick.call({});
         assert.assert(callbackCalled);
+        assert.assertEqual(widget_instance.panel, panel_stub);
     };
 
 }());
