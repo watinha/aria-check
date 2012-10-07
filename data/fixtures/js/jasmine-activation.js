@@ -1,6 +1,12 @@
 (function() {
     "use strict";
 
+    describe("Jasmine environment checking", function () {
+        it("environment should be running OK, start testing", function () {
+            expect(jasmine).toBeDefined();
+        });
+    });
+
     var jasmineEnv = jasmine.getEnv();
     jasmineEnv.updateInterval = 1000;
 

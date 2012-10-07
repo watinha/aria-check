@@ -1,3 +1,9 @@
+var app = require("app");
+
+exports.test_supimpa = function (assert) {
+    assert.ok(true);
+}
+
 (function () {
     'use strict';
 
@@ -8,6 +14,7 @@
         app1.init();
         app2.init();
 
+        assert.ok("true", "true");
         assert.assertEqual(app1.widget, app2.widget);
     };
 
@@ -25,9 +32,9 @@
             self = require("self"),
             app = require("app").create_app();
         app.init();
-        assert.waitUntilDone(30000);
+        assert.waitUntilDone(3000);
         tabs.open({
-            url: self.data.url("fixtures/tabpanel_dummy.html"),
+            url: self.data.url("fixtures/tabpanel/tabpanel_dummy.html"),
             onReady: function (tab) {
                 /**
                   * tricky part to extract data from the HTML of a Single
@@ -68,7 +75,7 @@
         app.init();
         assert.waitUntilDone(30000);
         tabs.open({
-            url: self.data.url("fixtures/tabpanel_dummy.html"),
+            url: self.data.url("fixtures/tabpanel/tabpanel_dummy.html"),
             onReady: function (tab) {
                 /**
                   * tricky part to extract data from the HTML of a Single
