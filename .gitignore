@@ -1,3 +1,4 @@
 *.swp
 *~
 .DS_store
+dev_profile/*
