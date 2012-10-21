@@ -1,6 +1,7 @@
 #!/usr/bin/make
 export CFX_MISSING_MESSAGE="you need to set the Addon-SDK in your shell..."
 export IS_CFX_SET=`which cfx`
+export PROFILEDIR=dev_profile
 
 help:
 	@echo "****************************************************"
@@ -24,7 +25,7 @@ help:
 
 tests:
 	@if [ $(IS_CFX_SET) ]; then\
-		cfx test | sed "s/console: \[JavaScript Warning: .*\]//";\
+		cfx test --profiledir=$(PROFILEDIR) | sed "s/console: \[JavaScript Warning: .*\]//";\
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
@@ -34,7 +35,7 @@ jslint:
 
 run:
 	@if [ $(IS_CFX_SET) ]; then\
-		cfx run;\
+		cfx run --profiledir=$(PROFILEDIR);\
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
