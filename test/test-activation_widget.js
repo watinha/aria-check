@@ -14,7 +14,7 @@
                 callback: function () {
                     callbackCalled = true;
                     // assert that the context of the callback is the same as passed
-                    assert.assertEqual(callbackHandler, this);
+                    assert.equal(callbackHandler, this);
                 }
             };
 
@@ -23,7 +23,8 @@
             callbackHandler.callback();
         });
         widget_instance.onClick.call({});
-        assert.assert(callbackCalled);
+        assert.ok(callbackCalled);
     };
 
+    require("test").run(exports);
 }());
