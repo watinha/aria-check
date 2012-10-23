@@ -25,7 +25,7 @@ help:
 
 tests:
 	@if [ $(IS_CFX_SET) ]; then\
-		cfx test --profiledir=$(PROFILEDIR) | sed "s/console: \[JavaScript Warning: .*\]//";\
+		cfx test --profiledir=$(PROFILEDIR) --suppress-web-console;\
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
