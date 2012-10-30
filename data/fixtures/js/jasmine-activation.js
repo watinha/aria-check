@@ -20,11 +20,11 @@
 
     (function () {
         self.port.on("jasmineCSSURL", function (data) {
-            var reporter = document.querySelector("#HTMLReporter");
+            var reporter = document.querySelector("#HTMLReporter"),
+                link = document.createElement("link");
             if (reporter) {
                 reporter.parentNode.removeChild(reporter);
             } else {
-                var link = document.createElement("link");
                 link.type = "text/css";
                 link.rel = "stylesheet";
                 link.href = data;
@@ -45,6 +45,7 @@
                     overlay.addEventListener("click", function () {
                         document.body.removeChild(overlay);
                         document.body.removeChild(reporter);
+                        document.body.removeChild(link);
                     });
                     document.body.appendChild(overlay);
                 }
