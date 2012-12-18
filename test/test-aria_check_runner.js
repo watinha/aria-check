@@ -86,5 +86,12 @@
         });
     };
 
+    exports["test perfect implementation for tab widget should be acknowledged in tabpanel_perfect"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_perfect.html", function (data) {
+            assert.ok(data.passed, "the test should succeed in recognizing a perfect tab widget implementation");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());
