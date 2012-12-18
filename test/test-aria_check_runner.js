@@ -44,5 +44,19 @@
         });
     };
 
+    exports["test should be reported that tab role has tabindex >= 0 in tabpanel_dummy3"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy3.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since tab inside tablist does not have tabindex >= 0");
+            done();
+        });
+    };
+
+    exports["test should be reported that there should be one tabpanel for each tab in tabpanel_dummy4"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy4.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there are not enough tabpanels for each tab");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());

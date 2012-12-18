@@ -19,5 +19,26 @@
             expect(tabElements.length).toBeGreaterThan(0);
         });
 
+        /* checks initial interaction stats on tab elements */
+        it("there should be one focusable tab role element when the page loads", function () {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                focusable = [];
+
+            for (var i = 0; i < tabElements.length; i++) {
+                if (tabElements[i].tabIndex >= 0) {
+                    focusable.push(tabElements[i]);
+                }
+            };
+
+            expect(focusable.length).toBeGreaterThan(0);
+        });
+
+        it("there should be one tabpanel role element for each tab role elements", function () {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                tabPanelElements = document.querySelectorAll("*[role='tabpanel']")
+                focusable = [];
+
+            expect(tabElements.length).toBeGreaterThan(tabPanelElements.length);
+        });
     });
 }());
