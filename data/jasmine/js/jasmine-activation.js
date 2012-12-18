@@ -10,9 +10,11 @@
     var jasmineEnv = jasmine.getEnv();
     jasmineEnv.updateInterval = 1000;
 
-    var htmlReporter = new jasmine.HtmlReporter();
+    var htmlReporter = new jasmine.HtmlReporter(),
+        jsReporter = new jasmine.JSReporter();
 
     jasmineEnv.addReporter(htmlReporter);
+    jasmineEnv.addReporter(jsReporter);
 
     jasmineEnv.specFilter = function(spec) {
         return htmlReporter.specFilter(spec);
@@ -31,6 +33,21 @@
                 document.body.appendChild(link);
             }
             jasmineEnv.execute();
+
+            /**
+              * sends a json reporter back to chrome privileged scripts
+              */
+            (function () {
+                var jsReport,
+                    verifyReporter = function () {
+                        if (jasmine.getJSReport)
+                            self.port.emit("jasmine_report", jasmine.getJSReport());
+                        else
+                            setTimeout(verifyReporter, 2000);
+                    };
+                verifyReporter();
+            })();
+
             /**
               * set a cool layout for the reporter
               */
