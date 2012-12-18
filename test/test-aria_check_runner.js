@@ -30,5 +30,12 @@
         });
     };
 
+    exports["test should be reported that there is no tablist role in tabpanel_dummy1"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy1.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there are no tablist role in the webpage");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());

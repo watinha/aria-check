@@ -9,5 +9,10 @@
             expect(tabElements.length).toBeGreaterThan(0);
         });
 
+        it("the webpage should have a tablist role element that contains the tab role element", function () {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']");
+            expect(tabElements.length).toBeGreaterThan(0);
+        });
+
     });
 }());
