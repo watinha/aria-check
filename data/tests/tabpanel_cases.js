@@ -14,5 +14,10 @@
             expect(tabElements.length).toBeGreaterThan(0);
         });
 
+        it("the webpage should have a tabpanel role element in the page", function () {
+            var tabElements = document.querySelectorAll("*[role='tabpanel']");
+            expect(tabElements.length).toBeGreaterThan(0);
+        });
+
     });
 }());

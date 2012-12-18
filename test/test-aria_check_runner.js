@@ -25,14 +25,21 @@
 
     exports["test should be reported that there is no tab widget in tabpanel_dummy"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy.html", function (data) {
-            assert.ok(!data.passed, "the test should fail since there are no tab widgets in the webpage");
+            assert.ok(!data.passed, "the test should fail since there is no tab widget in the webpage");
             done();
         });
     };
 
     exports["test should be reported that there is no tablist role in tabpanel_dummy1"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy1.html", function (data) {
-            assert.ok(!data.passed, "the test should fail since there are no tablist role in the webpage");
+            assert.ok(!data.passed, "the test should fail since there is no tablist role in the webpage");
+            done();
+        });
+    };
+
+    exports["test should be reported that there is no tabpanel role in tabpanel_dummy2"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy2.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there is no tabpanel role in the webpage");
             done();
         });
     };
