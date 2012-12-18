@@ -67,6 +67,32 @@
                     expect(tabElements[i].textContent.length).not.toBe(0);
                 };
             });
+
+            it("there should be descriptive text content for each tabpanel element", function () {
+                var tabPanels = document.querySelectorAll("*[role='tabpanel']");
+
+                for (var i = 0; i < tabPanels.length; i++) {
+                    var title = tabPanels[i].attributes.getNamedItem("title"),
+                        label = tabPanels[i].attributes.getNamedItem("aria-label"),
+                        labeled = tabPanels[i].attributes.getNamedItem("aria-labeledby"),
+                        described = tabPanels[i].attributes.getNamedItem("aria-describedby"),
+                        any_label = "";
+                    if (title && title.textContent.length != 0) {
+                        any_label = title.textContent;
+                    }
+                    if (label && label.textContent.length != 0) {
+                        any_label = label;
+                    }
+                    if (labeled && labeled.textContent.length != 0 && document.getElementById(labeled.textContent)) {
+                        any_label = labeled.textContent;
+                    }
+                    if (described && described.textContent.length != 0 && document.getElementById(described.textContent)) {
+                        any_label = described.textContent;
+                    }
+                    expect(any_label).not.toBe("");
+                    expect(any_label.length).not.toBe(0);
+                };
+            });
         });
 
         /* check elements structure */
