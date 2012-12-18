@@ -65,5 +65,12 @@
         });
     };
 
+    exports["test should be reported that there should be descriptive text content inside the tab elements in tabpanel_dummy6"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy6.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there is no descriptive content for the tab labels");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());

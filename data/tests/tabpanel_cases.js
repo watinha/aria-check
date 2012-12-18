@@ -52,5 +52,15 @@
 
             expect(focusable.length).toBe(1);
         });
+
+        /* check the text labels for the tab elements */
+        it("there should be descriptive text content for each tab role element", function () {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']");
+
+            for (var i = 0; i < tabElements.length; i++) {
+                expect(tabElements[i].textContent).not.toBe("");
+                expect(tabElements[i].textContent.length).not.toBe(0);
+            };
+        });
     });
 }());
