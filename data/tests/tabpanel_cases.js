@@ -35,10 +35,22 @@
 
         it("there should be one tabpanel role element for each tab role elements", function () {
             var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
-                tabPanelElements = document.querySelectorAll("*[role='tabpanel']")
+                tabPanelElements = document.querySelectorAll("*[role='tabpanel']");
+
+            expect(tabElements.length).toBe(tabPanelElements.length);
+        });
+
+        it("there should be only one interactive tab role element", function () {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
                 focusable = [];
 
-            expect(tabElements.length).toBeGreaterThan(tabPanelElements.length);
+            for (var i = 0; i < tabElements.length; i++) {
+                if (tabElements[i].tabIndex >= 0) {
+                    focusable.push(tabElements[i]);
+                }
+            };
+
+            expect(focusable.length).toBe(1);
         });
     });
 }());

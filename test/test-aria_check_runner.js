@@ -58,5 +58,12 @@
         });
     };
 
+    exports["test should be reported that there should be only one interactive tab role element in tabpanel_dummy5"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy5.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there is more than 1 interactive tab role element");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());
