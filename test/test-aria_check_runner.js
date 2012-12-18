@@ -72,5 +72,19 @@
         });
     };
 
+    exports["test should be reported that each tab should match one single tabpanel in tabpanel_dummy7"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy7.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since not all tab role");
+            done();
+        });
+    };
+
+    exports["test should be reported that each tabpanel should have one label in tabpanel_dummy8"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy8.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since there are no labels for the tabpanel");
+            done();
+        });
+    };
+
     require("test").run(exports);
 }());

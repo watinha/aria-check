@@ -58,7 +58,7 @@
         });
 
         /* check the text labels for the tab elements */
-        describe("text alternatives", function () {
+        describe("text alternatives: ", function () {
             it("there should be descriptive text content for each tab role element", function () {
                 var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']");
 
@@ -66,6 +66,28 @@
                     expect(tabElements[i].textContent).not.toBe("");
                     expect(tabElements[i].textContent.length).not.toBe(0);
                 };
+            });
+        });
+
+        /* check elements structure */
+        describe("elements structure: ", function () {
+            it("each tab role element should control one tabpanel role element, using aria-controls attribute", function () {
+                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
+                    foundElements = [];
+
+                for (var i = 0; i < tabPanelElements.length; i++) {
+                    for (var j = 0; j < tabElements.length; j++) {
+                        var ariaControlsAttribute = tabElements[j].attributes.getNamedItem("aria-controls");
+                        if (ariaControlsAttribute && tabPanelElements[i].id == ariaControlsAttribute.textContent) {
+                            foundElements.push(tabPanelElements[i].id);
+                            break;
+                        }
+                    };
+                };
+
+                expect(tabElements.length).toBe(tabPanelElements.length);
+                expect(foundElements.length).toBe(tabElements.length);
             });
         });
     });
