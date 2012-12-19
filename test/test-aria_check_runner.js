@@ -96,7 +96,13 @@
     /* testing the behavior of the tab widget */
     exports["test 12 should be reported that dispatching keyboard events in the active tab role elements should move focus in tabpanel_dummy10"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy10.html", function (data) {
-            assert.ok(!data.passed, "the test should fail since keyboard events do not change the focus of the current tab role element");
+            assert.ok(!data.passed, "the test should fail since down arrow keyboard event does not change the focus of the current tab role element");
+            done();
+        });
+    };
+    exports["test 13 should be reported that dispatching keyboard events in the active tab role elements should move focus in tabpanel_dummy11"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy11.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since right arrow keyboard event does not change the focus of the current tab role element");
             done();
         });
     };
