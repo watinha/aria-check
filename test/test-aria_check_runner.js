@@ -100,9 +100,24 @@
             done();
         });
     };
+
     exports["test 13 should be reported that dispatching keyboard events in the active tab role elements should move focus in tabpanel_dummy11"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy11.html", function (data) {
             assert.ok(!data.passed, "the test should fail since right arrow keyboard event does not change the focus of the current tab role element");
+            done();
+        });
+    };
+
+    exports["test 14 should be reported that dispatching keyboard events in the active tab role elements should move focus in tabpanel_dummy12"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy12.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since up arrow keyboard event does not change the focus of the current tab role element");
+            done();
+        });
+    };
+
+    exports["test 15 should be reported that dispatching keyboard events in the active tab role elements should move focus in tabpanel_dummy13"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy13.html", function (data) {
+            assert.ok(!data.passed, "the test should fail since left arrow keyboard event does not change the focus of the current tab role element");
             done();
         });
     };

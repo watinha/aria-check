@@ -14,33 +14,35 @@
             target.dispatchEvent(keyupEvent);
             target.dispatchEvent(keypressEvent);
         },
-        verifyFocusChange: function (document, keyCode) {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
-                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
-                    beginningActiveTab,
-                    activeTab,
-                    activeTabIndex,
-                    i = 0;
+        verifyFocusChange: function (document, keyCode, indexDelta) {
+            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
+                beginningActiveTab,
+                activeTab,
+                activeTabIndex,
+                i = 0,
+                indexDelta = indexDelta || 1;
 
-                for (i = 0; i < tabElements.length; i = i + 1) {
-                    if (tabElements[i].tabIndex >= 0) {
-                        activeTab = tabElements[i];
-                        activeTabIndex = i;
-                        break;
-                    }
+            for (i = 0; i < tabElements.length; i = i + 1) {
+                if (tabElements[i].tabIndex >= 0) {
+                    activeTab = tabElements[i];
+                    activeTabIndex = i;
+                    break;
                 }
+            }
 
-                beginningActiveTab = activeTab;
+            beginningActiveTab = activeTab;
 
-                // set focus to the tab
-                activeTab.focus();
-                do {
-                    // dispatch a keyboard event to move the focus
-                    Helpers.dispatchKeyEvent(activeTab, keyCode);
-                    activeTabIndex = (activeTabIndex + 1) % tabElements.length;
-                    activeTab = document.activeElement;
-                    expect(document.activeElement).toBe(tabElements[activeTabIndex]);
-                } while (activeTab !== beginningActiveTab);
+            // set focus to the tab
+            activeTab.focus();
+            do {
+                // dispatch a keyboard event to move the focus
+                Helpers.dispatchKeyEvent(activeTab, keyCode);
+                activeTabIndex = (activeTabIndex + indexDelta) < 0 ?
+                    tabElements.length - 1 : ((activeTabIndex + indexDelta) % tabElements.length);
+                activeTab = document.activeElement;
+                expect(document.activeElement).toBe(tabElements[activeTabIndex]);
+            } while (activeTab !== beginningActiveTab);
         }
     };
 
@@ -219,6 +221,12 @@
             });
             it("the tab role element focus should move as the user press the right arrow key", function () {
                 Helpers.verifyFocusChange(document, 39);
+            });
+            it("the tab role element focus should move as the user press the up arrow key", function () {
+                Helpers.verifyFocusChange(document, 38, -1);
+            });
+            it("the tab role element focus should move as the user press the up arrow key", function () {
+                Helpers.verifyFocusChange(document, 37, -1);
             });
         });
 
