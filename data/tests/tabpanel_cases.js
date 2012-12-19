@@ -217,6 +217,9 @@
             it("the tab role element focus should move as the user press the down arrow key", function () {
                 Helpers.verifyFocusChange(document, 40);
             });
+            it("the tab role element focus should move as the user press the right arrow key", function () {
+                Helpers.verifyFocusChange(document, 39);
+            });
         });
 
     });
