@@ -1,5 +1,20 @@
-(function (describe, it, expect, document) {
+(function (describe, it, expect, document, window) {
     "use strict";
+    var Helpers = {
+        dispatchKeyEvent: function (target, keycode) {
+            var keydownEvent = document.createEvent("KeyboardEvent"),
+                keyupEvent = document.createEvent("KeyboardEvent"),
+                keypressEvent = document.createEvent("KeyboardEvent");
+
+            keydownEvent.initKeyEvent("keydown", true, true, window, false, false, false, false, keycode, keycode);
+            keyupEvent.initKeyEvent("keyup", true, true, window, false, false, false, false, keycode, keycode);
+            keypressEvent.initKeyEvent("keypress", true, true, window, false, false, false, false, keycode, keycode);
+
+            target.dispatchEvent(keydownEvent);
+            target.dispatchEvent(keyupEvent);
+            target.dispatchEvent(keypressEvent);
+        }
+    };
 
     describe("Tab widget: ", function () {
 
@@ -169,5 +184,38 @@
             });
         });
 
+        /* behavior verification for the tabpanel widget */
+        describe("widget behavior: ", function () {
+            it("the tab role element focus should move as the user press the down arrow key", function () {
+                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
+                    beginningActiveTab,
+                    activeTab,
+                    activeTabIndex,
+                    i = 0;
+
+                for (i = 0; i < tabElements.length; i = i + 1) {
+                    if (tabElements[i].tabIndex >= 0) {
+                        activeTab = tabElements[i];
+                        activeTabIndex = i;
+                        break;
+                    }
+                }
+
+                beginningActiveTab = activeTab;
+
+                // set focus to the tab
+                activeTab.focus();
+                do {
+                    // dispatch a keyboard event to move the focus
+                    Helpers.dispatchKeyEvent(activeTab, 40);
+                    activeTabIndex = (activeTabIndex + 1) % tabElements.length;
+                    activeTab = document.activeElement;
+                    expect(document.activeElement).toBe(tabElements[activeTabIndex]);
+                } while (activeTab !== beginningActiveTab);
+
+            });
+        });
+
     });
-}(describe, it, expect, document));
+}(describe, it, expect, document, window));
