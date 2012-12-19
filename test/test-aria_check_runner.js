@@ -136,6 +136,20 @@
         });
     };
 
+    exports["test 18 should change visibility of associated tabpanel with keydown arrow key event tabpanel_dummy16"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy16.html", function (data) {
+            assert.ok(!data.passed, "the visibility of the tabpanel should be changed as the up key arrow is pressed");
+            done();
+        });
+    };
+
+    exports["test 19 should change visibility of associated tabpanel with keydown arrow key event tabpanel_dummy17"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy17.html", function (data) {
+            assert.ok(!data.passed, "the visibility of the tabpanel should be changed as the left key arrow is pressed");
+            done();
+        });
+    };
+
     exports["test 99 perfect implementation for tab widget should be acknowledged in tabpanel_perfect"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_perfect.html", function (data) {
             assert.ok(data.passed, "the test should succeed in recognizing a perfect tab widget implementation");

@@ -265,6 +265,14 @@
                 tabFocusShouldChangeTabPanel(39);
             });
 
+            it("the tabpanels should be visible as the tab role elements are active (on focus) when the up arrow is used", function () {
+                tabFocusShouldChangeTabPanel(38);
+            });
+
+            it("the tabpanels should be visible as the tab role elements are active (on focus) when the left arrow is used", function () {
+                tabFocusShouldChangeTabPanel(37);
+            });
+
         });
 
     });
