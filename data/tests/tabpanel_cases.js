@@ -21,6 +21,31 @@
             });
         });
 
+        /* check elements structure */
+        describe("elements structure: ", function () {
+            it("each tab role element should control one tabpanel role element, using aria-controls attribute", function () {
+                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
+                    ariaControlsAttribute,
+                    foundElements = [],
+                    i = 0,
+                    j = 0;
+
+                for (i = 0; i < tabPanelElements.length; i = i + 1) {
+                    for (j = 0; j < tabElements.length; j = j + 1) {
+                        ariaControlsAttribute = tabElements[j].attributes.getNamedItem("aria-controls");
+                        if (ariaControlsAttribute && tabPanelElements[i].id === ariaControlsAttribute.textContent) {
+                            foundElements.push(tabPanelElements[i].id);
+                            break;
+                        }
+                    }
+                }
+
+                expect(tabElements.length).toBe(tabPanelElements.length);
+                expect(foundElements.length).toBe(tabElements.length);
+            });
+        });
+
         /* checks initial interaction stats on tab elements */
         describe("initial interaction state: ", function () {
             it("there should be one focusable tab role element when the page loads", function () {
@@ -144,29 +169,5 @@
             });
         });
 
-        /* check elements structure */
-        describe("elements structure: ", function () {
-            it("each tab role element should control one tabpanel role element, using aria-controls attribute", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
-                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
-                    ariaControlsAttribute,
-                    foundElements = [],
-                    i = 0,
-                    j = 0;
-
-                for (i = 0; i < tabPanelElements.length; i = i + 1) {
-                    for (j = 0; j < tabElements.length; j = j + 1) {
-                        ariaControlsAttribute = tabElements[j].attributes.getNamedItem("aria-controls");
-                        if (ariaControlsAttribute && tabPanelElements[i].id === ariaControlsAttribute.textContent) {
-                            foundElements.push(tabPanelElements[i].id);
-                            break;
-                        }
-                    }
-                }
-
-                expect(tabElements.length).toBe(tabPanelElements.length);
-                expect(foundElements.length).toBe(tabElements.length);
-            });
-        });
     });
 }(describe, it, expect, document));
