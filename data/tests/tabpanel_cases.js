@@ -14,6 +14,35 @@
             target.dispatchEvent(keyupEvent);
             target.dispatchEvent(keypressEvent);
         },
+        verifyPanelVisibility: function (activeTab) {
+            var activeTabControlAttribute,
+                activeTabPanel,
+                tabPanelHidden,
+                tabPanelDisplay,
+                tabPanelVisibility,
+                panelInvisible,
+                tabPanelElements = document.querySelectorAll("[role='tabpanel']"),
+                i = 0;
+
+            activeTabControlAttribute = activeTab.attributes.getNamedItem("aria-controls").textContent;
+            activeTabPanel = document.getElementById(activeTabControlAttribute);
+
+            for (i = 0; i < tabPanelElements.length; i = i + 1) {
+                tabPanelHidden = tabPanelElements[i].attributes.getNamedItem("aria-hidden");
+                tabPanelDisplay = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("display");
+                tabPanelVisibility = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("visibility");
+
+                panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                 (tabPanelDisplay === "none") ||
+                                 (tabPanelVisibility === "hidden");
+
+                if (tabPanelElements[i] == activeTabPanel) {
+                    expect(panelInvisible).toBe(false);
+                } else {
+                    expect(panelInvisible).toBe(true);
+                }
+            }
+        },
         verifyFocusChange: function (document, keyCode, indexDelta) {
             var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
                 tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
@@ -130,14 +159,7 @@
 
             it("there should be only one visible tabpanel role element that is controled by the current active tab role element", function () {
                 var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
-                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
                     activeTab,
-                    activeTabControlAttribute,
-                    activeTabPanel,
-                    tabPanelHidden,
-                    tabPanelDisplay,
-                    tabPanelVisibility,
-                    panelInvisible,
                     i = 0;
 
                 for (i = 0; i < tabElements.length; i = i + 1) {
@@ -147,24 +169,8 @@
                     }
                 }
 
-                activeTabControlAttribute = activeTab.attributes.getNamedItem("aria-controls").textContent;
-                activeTabPanel = document.getElementById(activeTabControlAttribute);
-
-                for (i = 0; i < tabPanelElements.length; i = i + 1) {
-                    tabPanelHidden = tabPanelElements[i].attributes.getNamedItem("aria-hidden");
-                    tabPanelDisplay = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("display");
-                    tabPanelVisibility = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("visibility");
-
-                    panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
-                                     (tabPanelDisplay === "none") ||
-                                     (tabPanelVisibility === "hidden");
-
-                    if (tabPanelElements[i] == activeTabPanel) {
-                        expect(panelInvisible).toBe(false);
-                    } else {
-                        expect(panelInvisible).toBe(true);
-                    }
-                }
+                // check panel visibility
+                Helpers.verifyPanelVisibility(activeTab);
             });
         });
 
@@ -227,6 +233,25 @@
             });
             it("the tab role element focus should move as the user press the up arrow key", function () {
                 Helpers.verifyFocusChange(document, 37, -1);
+            });
+
+            it("the tabpanels should be visible as the tab role elements are active (on focus) when the down arrow is used", function () {
+                var tabElements = document.querySelectorAll("[role='tab']"),
+                    activeTab,
+                    i = 0;
+
+                for (i = 0; i < tabElements.length; i = i + 1) {
+                    if (tabElements[i].tabIndex >= 0) {
+                        activeTab = tabElements[i];
+                        break;
+                    }
+                }
+
+                activeTab.focus();
+                for (i = 0; i < tabElements.length; i = i + 1) {
+                    Helpers.dispatchKeyEvent(document.activeElement, 40);
+                    Helpers.verifyPanelVisibility(document.activeElement);
+                }
             });
         });
 
