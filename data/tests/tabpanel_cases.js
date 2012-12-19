@@ -222,20 +222,7 @@
 
         /* behavior verification for the tabpanel widget */
         describe("widget behavior: ", function () {
-            it("the tab role element focus should move as the user press the down arrow key", function () {
-                Helpers.verifyFocusChange(document, 40);
-            });
-            it("the tab role element focus should move as the user press the right arrow key", function () {
-                Helpers.verifyFocusChange(document, 39);
-            });
-            it("the tab role element focus should move as the user press the up arrow key", function () {
-                Helpers.verifyFocusChange(document, 38, -1);
-            });
-            it("the tab role element focus should move as the user press the up arrow key", function () {
-                Helpers.verifyFocusChange(document, 37, -1);
-            });
-
-            it("the tabpanels should be visible as the tab role elements are active (on focus) when the down arrow is used", function () {
+            var tabFocusShouldChangeTabPanel = function (keycode) {
                 var tabElements = document.querySelectorAll("[role='tab']"),
                     activeTab,
                     i = 0;
@@ -249,10 +236,35 @@
 
                 activeTab.focus();
                 for (i = 0; i < tabElements.length; i = i + 1) {
-                    Helpers.dispatchKeyEvent(document.activeElement, 40);
+                    Helpers.dispatchKeyEvent(document.activeElement, keycode);
                     Helpers.verifyPanelVisibility(document.activeElement);
                 }
+            };
+
+            it("the tab role element focus should move as the user press the down arrow key", function () {
+                Helpers.verifyFocusChange(document, 40);
             });
+
+            it("the tab role element focus should move as the user press the right arrow key", function () {
+                Helpers.verifyFocusChange(document, 39);
+            });
+
+            it("the tab role element focus should move as the user press the up arrow key", function () {
+                Helpers.verifyFocusChange(document, 38, -1);
+            });
+
+            it("the tab role element focus should move as the user press the up arrow key", function () {
+                Helpers.verifyFocusChange(document, 37, -1);
+            });
+
+            it("the tabpanels should be visible as the tab role elements are active (on focus) when the down arrow is used", function () {
+                tabFocusShouldChangeTabPanel(40);
+            });
+
+            it("the tabpanels should be visible as the tab role elements are active (on focus) when the right arrow is used", function () {
+                tabFocusShouldChangeTabPanel(39);
+            });
+
         });
 
     });

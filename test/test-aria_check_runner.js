@@ -122,9 +122,16 @@
         });
     };
 
-    exports["test 16 should be something wrong tabpanel_dummy14"] = function (assert, done) {
+    exports["test 16 should change visibility of associated tabpanel with keydown arrow key event tabpanel_dummy14"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy14.html", function (data) {
-            assert.ok(!data.passed, "there should be something wrong with this one");
+            assert.ok(!data.passed, "the visibility of the tabpanel should be changed as the down key arrow is pressed");
+            done();
+        });
+    };
+
+    exports["test 17 should change visibility of associated tabpanel with keydown arrow key event tabpanel_dummy15"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy15.html", function (data) {
+            assert.ok(!data.passed, "the visibility of the tabpanel should be changed as the right key arrow is pressed");
             done();
         });
     };
