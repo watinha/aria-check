@@ -66,7 +66,7 @@
                     });
                     document.body.appendChild(overlay);
                 }
-                reporter.style.cssText = "position:fixed;top:5%;left:5%;padding:5% 5%;height:80%;width:80%;z-index:1;background-color:#EEEEEE;overflow-y:scroll";
+                reporter.style.cssText = "position:fixed;top:5%;left:5%;padding:5% 5%;height:70%;width:80%;z-index:1;background-color:#EEEEEE;overflow-y:scroll";
             }());
         });
     }());
