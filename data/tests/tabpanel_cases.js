@@ -57,6 +57,45 @@
 
                 expect(focusable.length).toBe(1);
             });
+
+            it("there should be only one visible tabpanel role element that is controled by the current active tab role element", function () {
+                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                    tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
+                    activeTab,
+                    activeTabControlAttribute,
+                    activeTabPanel,
+                    tabPanelHidden,
+                    tabPanelDisplay,
+                    tabPanelVisibility,
+                    panelInvisible,
+                    i = 0;
+
+                for (i = 0; i < tabElements.length; i = i + 1) {
+                    if (tabElements[i].tabIndex >= 0) {
+                        activeTab = tabElements[i];
+                        break;
+                    }
+                }
+
+                activeTabControlAttribute = activeTab.attributes.getNamedItem("aria-controls").textContent;
+                activeTabPanel = document.getElementById(activeTabControlAttribute);
+
+                for (i = 0; i < tabPanelElements.length; i = i + 1) {
+                    tabPanelHidden = tabPanelElements[i].attributes.getNamedItem("aria-hidden");
+                    tabPanelDisplay = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("display");
+                    tabPanelVisibility = window.getComputedStyle(tabPanelElements[i], null).getPropertyValue("visibility");
+
+                    panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                     (tabPanelDisplay === "none") ||
+                                     (tabPanelVisibility === "hidden");
+
+                    if (tabPanelElements[i] == activeTabPanel) {
+                        expect(panelInvisible).toBe(false);
+                    } else {
+                        expect(panelInvisible).toBe(true);
+                    }
+                }
+            });
         });
 
         /* check the text labels for the tab elements */
