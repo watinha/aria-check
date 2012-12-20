@@ -36,7 +36,7 @@
 	     	</ul>
 	</div>
 
-	<div id="panel2" class="panel" aria-labelledby="tab2" role="tabpanel">
+	<div id="panel2" class="panel" aria-label="tab2" role="tabpanel">
 		<h3>Select Vegetables</h3>
 
 	     	<ul class="controlList">
@@ -49,7 +49,7 @@
 	     	</ul>
 	</div>
 
-	<div id="panel3" class="panel" aria-labelledby="tab3" role="tabpanel">
+	<div id="panel3" class="panel" aria-describedby="tab3" role="tabpanel">
 		<h3>Select Carnivore Options</h3>
 
       		<ul class="controlList">
@@ -60,7 +60,7 @@
       		</ul>
 	</div>
 
-	<div id="panel4" class="panel" aria-labelledby="tab4" role="tabpanel">
+	<div id="panel4" class="panel" title="tab4" role="tabpanel">
 	 	<h3>Select Delivery Method</h3>
 
 		<ul class="controlList">
@@ -548,7 +548,7 @@ tabpanel.prototype.handlePanelKeyDown = function($elem, e) {
 			}
 
 			// get the jQuery object of the tab
-			var $tab = $('#' + $elem.attr('aria-labelledby'));
+			var $tab = $('#' + $elem.attr('aria-labeledby'));
 
 			// Move focus to the tab
 			$tab.focus();
@@ -597,7 +597,7 @@ tabpanel.prototype.handlePanelKeyDown = function($elem, e) {
 			}
 
 			// get the jQuery object of the tab
-			var $tab = $('#' + $elem.attr('aria-labelledby'));
+			var $tab = $('#' + $elem.attr('aria-labeledby'));
 
 			// get the index of the tab in the tab list
 			var curNdx = this.$tabs.index($tab);
@@ -696,4 +696,5 @@ $.extend($.expr[':'], {
 
 </body>
 </html>
+
 

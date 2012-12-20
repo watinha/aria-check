@@ -198,7 +198,7 @@
                 for (i = 0; i < tabPanels.length; i = i + 1) {
                     title = tabPanels[i].attributes.getNamedItem("title");
                     label = tabPanels[i].attributes.getNamedItem("aria-label");
-                    labeled = tabPanels[i].attributes.getNamedItem("aria-labeledby");
+                    labeled = tabPanels[i].attributes.getNamedItem("aria-labelledby");
                     described = tabPanels[i].attributes.getNamedItem("aria-describedby");
                     any_label = "";
 
