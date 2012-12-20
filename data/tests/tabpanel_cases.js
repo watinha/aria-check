@@ -236,8 +236,32 @@
 
                 activeTab.focus();
                 for (i = 0; i < tabElements.length; i = i + 1) {
-                    Helpers.dispatchKeyEvent(document.activeElement, keycode);
-                    Helpers.verifyPanelVisibility(document.activeElement);
+                    runs(function () {
+                        Helpers.dispatchKeyEvent(document.activeElement, keycode);
+                    });
+                    waitsFor(function () {
+                        var activeTabControlAttribute,
+                            activeTabPanel,
+                            panelInvisible,
+                            tabPanelHidden,
+                            tabPanelDisplay,
+                            tabPanelVisibility;
+
+                        activeTabControlAttribute = document.activeElement.attributes.getNamedItem("aria-controls").textContent;
+                        activeTabPanel = document.getElementById(activeTabControlAttribute);
+
+                        tabPanelHidden = activeTabPanel.attributes.getNamedItem("aria-hidden");
+                        tabPanelDisplay = window.getComputedStyle(activeTabPanel, null).getPropertyValue("display");
+                        tabPanelVisibility = window.getComputedStyle(activeTabPanel, null).getPropertyValue("visibility");
+
+                        panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                         (tabPanelDisplay === "none") ||
+                                         (tabPanelVisibility === "hidden");
+                        return !panelInvisible;
+                    }, "something", 1000);
+                    runs(function() {
+                        Helpers.verifyPanelVisibility(document.activeElement);
+                    });
                 }
             };
 
