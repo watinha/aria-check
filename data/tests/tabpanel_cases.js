@@ -44,7 +44,7 @@
             }
         },
         verifyFocusChange: function (document, keyCode, indexDelta) {
-            var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+            var tabElements = document.querySelectorAll("*[role='tab']"),
                 tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
                 beginningActiveTab,
                 activeTab,
@@ -98,7 +98,7 @@
         /* check elements structure */
         describe("elements structure: ", function () {
             it("each tab role element should control one tabpanel role element, using aria-controls attribute", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     tabPanelElements = document.querySelectorAll("*[role='tabpanel']"),
                     ariaControlsAttribute,
                     foundElements = [],
@@ -123,7 +123,7 @@
         /* checks initial interaction stats on tab elements */
         describe("initial interaction state: ", function () {
             it("there should be one focusable tab role element when the page loads", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     focusable = [],
                     i = 0;
 
@@ -137,14 +137,14 @@
             });
 
             it("there should be one tabpanel role element for each tab role elements", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     tabPanelElements = document.querySelectorAll("*[role='tabpanel']");
 
                 expect(tabElements.length).toBe(tabPanelElements.length);
             });
 
             it("there should be only one interactive tab role element", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     focusable = [],
                     i = 0;
 
@@ -158,7 +158,7 @@
             });
 
             it("there should be only one visible tabpanel role element that is controled by the current active tab role element", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     activeTab,
                     i = 0;
 
@@ -177,7 +177,7 @@
         /* check the text labels for the tab elements */
         describe("text alternatives: ", function () {
             it("there should be descriptive text content for each tab role element", function () {
-                var tabElements = document.querySelectorAll("*[role='tablist'] *[role='tab']"),
+                var tabElements = document.querySelectorAll("*[role='tab']"),
                     i = 0;
 
                 for (i = 0; i < tabElements.length; i = i + 1) {
