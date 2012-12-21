@@ -117,6 +117,7 @@
 
                 expect(tabElements.length).toBe(tabPanelElements.length);
                 expect(foundElements.length).toBe(tabElements.length);
+                expect(tabElements.length).not.toBe(0);
             });
         });
 
@@ -141,6 +142,7 @@
                     tabPanelElements = document.querySelectorAll("*[role='tabpanel']");
 
                 expect(tabElements.length).toBe(tabPanelElements.length);
+                expect(tabElements.length).not.toBe(0);
             });
 
             it("there should be only one interactive tab role element", function () {
@@ -180,6 +182,7 @@
                 var tabElements = document.querySelectorAll("*[role='tab']"),
                     i = 0;
 
+                expect(tabElements.length).not.toBe(0);
                 for (i = 0; i < tabElements.length; i = i + 1) {
                     expect(tabElements[i].textContent).not.toBe("");
                     expect(tabElements[i].textContent.length).not.toBe(0);
@@ -188,6 +191,7 @@
 
             it("there should be descriptive text content for each tabpanel element", function () {
                 var tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                    tabs = document.querySelectorAll("*[role='tab']"),
                     title,
                     label,
                     labeled,
@@ -195,6 +199,8 @@
                     any_label,
                     i = 0;
 
+                expect(tabs.length).toBe(tabPanels.length);
+                expect(tabs.length).not.toBe(0);
                 for (i = 0; i < tabPanels.length; i = i + 1) {
                     title = tabPanels[i].attributes.getNamedItem("title");
                     label = tabPanels[i].attributes.getNamedItem("aria-label");
