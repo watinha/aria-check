@@ -1,14 +1,15 @@
 (function (describe, it, expect, document, window) {
     "use strict";
     var Helpers = {
-        dispatchKeyEvent: function (target, keycode) {
+        dispatchKeyEvent: function (target, keycode, ctrlKey) {
             var keydownEvent = document.createEvent("KeyboardEvent"),
                 keyupEvent = document.createEvent("KeyboardEvent"),
-                keypressEvent = document.createEvent("KeyboardEvent");
+                keypressEvent = document.createEvent("KeyboardEvent"),
+                ctrlKey = ctrlKey || false;
 
-            keydownEvent.initKeyEvent("keydown", true, true, window, false, false, false, false, keycode, keycode);
-            keyupEvent.initKeyEvent("keyup", true, true, window, false, false, false, false, keycode, keycode);
-            keypressEvent.initKeyEvent("keypress", true, true, window, false, false, false, false, keycode, keycode);
+            keydownEvent.initKeyEvent("keydown", true, true, window, ctrlKey, false, false, false, keycode, keycode);
+            keyupEvent.initKeyEvent("keyup", true, true, window, ctrlKey, false, false, false, keycode, keycode);
+            keypressEvent.initKeyEvent("keypress", true, true, window, ctrlKey, false, false, false, keycode, keycode);
 
             target.dispatchEvent(keydownEvent);
             target.dispatchEvent(keyupEvent);
@@ -301,6 +302,20 @@
 
             it("the tabpanels should be visible as the tab role elements are active (on focus) when the left arrow is used", function () {
                 tabFocusShouldChangeTabPanel(37);
+            });
+
+            it("the focus should change to the active tab element as the user is inside a tabpanel and press the ctrl + up arrow key", function () {
+                var tabs = document.querySelectorAll("*[role='tab']"),
+                    tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                    i;
+
+                document.body.tabIndex = 0;
+                for (var i = 0; i < tabs.length; i++) {
+                    document.body.focus();
+                    Helpers.dispatchKeyEvent(tabPanels[i], 38, true);
+                    expect(document.activeElement).toBe(tabs[i]);
+                    Helpers.verifyFocusChange(document, 40);
+                };
             });
 
         });

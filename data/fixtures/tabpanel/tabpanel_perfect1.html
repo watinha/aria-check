@@ -548,7 +548,7 @@ tabpanel.prototype.handlePanelKeyDown = function($elem, e) {
 			}
 
 			// get the jQuery object of the tab
-			var $tab = $('#' + $elem.attr('aria-labeledby'));
+			var $tab = $('#tab' + $elem.attr('id').substr(5));
 
 			// Move focus to the tab
 			$tab.focus();
@@ -597,7 +597,7 @@ tabpanel.prototype.handlePanelKeyDown = function($elem, e) {
 			}
 
 			// get the jQuery object of the tab
-			var $tab = $('#' + $elem.attr('aria-labeledby'));
+			var $tab = $('#' + $elem.attr('aria-labelledby'));
 
 			// get the index of the tab in the tab list
 			var curNdx = this.$tabs.index($tab);

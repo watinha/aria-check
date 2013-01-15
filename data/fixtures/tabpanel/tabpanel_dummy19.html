@@ -11,17 +11,11 @@
             <div id="tab4" aria-controls="panel4" role="tab">tab4</div>
         </div>
         <div id="panel1" style="display:block; background-color: yellow; width: 300px; height: 200px;" role="tabpanel" aria-labelledby="tab1">
-            <button>something</button>
+            <input type="button" name="some_name" value="some button" />
         </div>
-        <div id="panel2" style="display:none; background-color: red; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab2">
-            <button>something</button>
-        </div>
-        <div id="panel3" style="display:none; background-color: blue; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab3">
-            <button>something</button>
-        </div>
-        <div id="panel4" style="display:none; background-color: green; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab4">
-            <button>something</button>
-        </div>
+        <div id="panel2" style="display:none; background-color: red; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab2"></div>
+        <div id="panel3" style="display:none; background-color: blue; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab3"></div>
+        <div id="panel4" style="display:none; background-color: green; width: 300px; height: 200px;" aria-hidden="true" role="tabpanel" aria-labelledby="tab4"></div>
 
         <script type="text/javascript" charset="utf-8">
         (function () {
@@ -31,8 +25,7 @@
 
             for (i = 0; i < tabElements.length; i++) {
                 (function () {
-                    var tabIndex = i,
-                        timer;
+                    var tabIndex = i;
                     tabElements[tabIndex].addEventListener("keydown", function (ev) {
                         var moveFocus = function (indexDelta) {
                                 var nextFocusable = (tabIndex + indexDelta) >= 0 ?
@@ -59,25 +52,14 @@
                             };
                         if (ev.keyCode === 40 || ev.keyCode === 39) {
                             moveFocus(1);
-                            clearTimeout(timer);
-                            timer = setTimeout(function () {
-                                updatePanelVisibility();
-                            }, 250);
+                            updatePanelVisibility();
                         }
                         if (ev.keyCode === 38 || ev.keyCode == 37) {
                             moveFocus(-1);
-                            clearTimeout(timer);
-                            timer = setTimeout(function () {
-                                updatePanelVisibility();
-                            }, 250);
                         }
-                    }, false);
-                }());
-                (function () {
-                    var tabIndex = i;
-                    tabPanelElements[tabIndex].addEventListener("keydown", function (ev) {
-                        if (ev.keyCode === 38 && ev.ctrlKey)
-                            tabElements[tabIndex].focus();
+                        if (ev.keyCode === 38)
+                            moveFocus(-1);
+                            updatePanelVisibility();
                     }, false);
                 }());
             }
