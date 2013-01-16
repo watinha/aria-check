@@ -290,13 +290,31 @@
 
             it("the tab role element focus should move to the first tab as the user presses ctrl + home keys in the tabs", function () {
                 var tabs = document.querySelectorAll("*[role='tab']"),
+                    tabPanels = document.querySelectorAll("*[role='tabpanel']"),
                     i, activeTabIndex;
 
                 for (var i = 0; i < tabs.length; i++) {
-                    for(var j = 0; j < i; j++)
-                        Helpers.dispatchKeyEvent(tabs[i], 40, false);
-                    Helpers.dispatchKeyEvent(tabs[i], 36, true);
-                    expect(document.activeElement).toBe(tabs[0]);
+                    (function () {
+                        var tabIndex = i;
+                        runs(function () {
+                            for(var j = 0; j < tabIndex; j++)
+                                Helpers.dispatchKeyEvent(tabs[j], 40, false);
+                        });
+                        waitsFor(function () {
+                            var tabPanelHidden = tabPanels[tabIndex].attributes.getNamedItem("aria-hidden"),
+                                tabPanelDisplay = window.getComputedStyle(tabPanels[tabIndex], null).getPropertyValue("display"),
+                                tabPanelVisibility = window.getComputedStyle(tabPanels[tabIndex], null).getPropertyValue("visibility"),
+                                panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                                 (tabPanelDisplay === "none") ||
+                                                 (tabPanelVisibility === "hidden");
+                            return !panelInvisible;
+                        }, "something", 1000);
+                        runs(function () {
+                            Helpers.dispatchKeyEvent(tabs[tabIndex], 36, true);
+                            expect(document.activeElement).toBe(tabs[0]);
+                            Helpers.verifyPanelVisibility(tabs[0]);
+                        });
+                    }());
                 };
             });
 

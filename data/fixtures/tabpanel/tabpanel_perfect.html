@@ -200,6 +200,11 @@ tabpanel.prototype.switchTabs = function($curTab, $newTab) {
 	if (this.accordian == false) {
 		// hide the current tab panel and set aria-hidden to true
 		this.$panel.find('#' + $curTab.attr('aria-controls')).hide().attr('aria-hidden', 'true');
+        (function () {
+            var panels = document.querySelectorAll("[role='tabpanel']");
+            for (var i = 0; i < panels.length; i++)
+                panels[i].style.display = "none";
+        }());
 
 		// show the new tab panel and set aria-hidden to false
 		this.$panel.find('#' + $newTab.attr('aria-controls')).show().attr('aria-hidden', 'false');
