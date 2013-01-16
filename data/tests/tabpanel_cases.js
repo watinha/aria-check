@@ -305,15 +305,14 @@
             });
 
             it("the focus should change to the active tab element as the user is inside a tabpanel and press the ctrl + up arrow key", function () {
-                var tabs = document.querySelectorAll("*[role='tab']"),
-                    tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                var tabPanels = document.querySelectorAll("*[role='tabpanel']"),
                     i;
 
                 document.body.tabIndex = 0;
-                for (var i = 0; i < tabs.length; i++) {
+                for (var i = 0; i < tabPanels.length; i++) {
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 38, true);
-                    expect(document.activeElement).toBe(tabs[i]);
+                    expect(document.activeElement.attributes.getNamedItem("aria-controls").textContent).toBe(tabPanels[i].id);
                     Helpers.verifyFocusChange(document, 40);
                 };
             });
