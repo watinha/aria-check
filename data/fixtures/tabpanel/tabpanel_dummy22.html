@@ -71,9 +71,6 @@
                                 updatePanelVisibility();
                             }, 250);
                         }
-                        if (ev.keyCode === 36 && ev.ctrlKey) {
-                            moveFocus(-tabIndex);
-                        }
                     }, false);
                     tabPanelElements[tabIndex].addEventListener("keydown", function (ev) {
                         switch (ev.keyCode) {

@@ -272,20 +272,32 @@
                 }
             };
 
-            it("the tab role element focus should move as the user press the down arrow key", function () {
+            it("the tab role element focus should move to the next tab as the user presses the down arrow key", function () {
                 Helpers.verifyFocusChange(document, 40);
             });
 
-            it("the tab role element focus should move as the user press the right arrow key", function () {
+            it("the tab role element focus should move to the next tab as the user presses the right arrow key", function () {
                 Helpers.verifyFocusChange(document, 39);
             });
 
-            it("the tab role element focus should move as the user press the up arrow key", function () {
+            it("the tab role element focus should move to the previous tab as the user presses the up arrow key", function () {
                 Helpers.verifyFocusChange(document, 38, -1);
             });
 
-            it("the tab role element focus should move as the user press the up arrow key", function () {
+            it("the tab role element focus should move to the previous tab as the user presses the left arrow key", function () {
                 Helpers.verifyFocusChange(document, 37, -1);
+            });
+
+            it("the tab role element focus should move to the first tab as the user presses ctrl + home keys in the tabs", function () {
+                var tabs = document.querySelectorAll("*[role='tab']"),
+                    i, activeTabIndex;
+
+                for (var i = 0; i < tabs.length; i++) {
+                    for(var j = 0; j < i; j++)
+                        Helpers.dispatchKeyEvent(tabs[i], 40, false);
+                    Helpers.dispatchKeyEvent(tabs[i], 36, true);
+                    expect(document.activeElement).toBe(tabs[0]);
+                };
             });
 
             it("the tabpanels should be visible as the tab role elements are active (on focus) when the down arrow is used", function () {

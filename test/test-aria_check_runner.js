@@ -178,6 +178,13 @@
         });
     };
 
+    exports["test 24 should focus first tab if ctrl + home keys are pressed in any tab"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy22.html", function (data) {
+            assert.ok(!data.passed, "ctrl + home key should move the focus to the first tab");
+            done();
+        });
+    };
+
     exports["test 99 perfect implementation for tab widget should be acknowledged in tabpanel_perfect"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_perfect.html", function (data) {
             assert.ok(data.passed, "the test should succeed in recognizing a perfect tab widget implementation");
