@@ -78,6 +78,13 @@
                                 updatePanelVisibility();
                             }, 250);
                         }
+                        if (ev.keyCode === 35 && ev.ctrlKey) {
+                            moveFocus(tabElements.length - tabIndex - 1);
+                            clearTimeout(timer);
+                            timer = setTimeout(function () {
+                                updatePanelVisibility();
+                            }, 250);
+                        }
                     }, false);
                     tabPanelElements[tabIndex].addEventListener("keydown", function (ev) {
                         switch (ev.keyCode) {

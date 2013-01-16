@@ -265,7 +265,7 @@
                                          (tabPanelDisplay === "none") ||
                                          (tabPanelVisibility === "hidden");
                         return !panelInvisible;
-                    }, "something", 1000);
+                    }, "something", 500);
                     runs(function() {
                         Helpers.verifyPanelVisibility(document.activeElement);
                     });
@@ -308,7 +308,7 @@
                                                  (tabPanelDisplay === "none") ||
                                                  (tabPanelVisibility === "hidden");
                             return !panelInvisible;
-                        }, "something", 1000);
+                        }, "something", 500);
                         runs(function () {
                             Helpers.dispatchKeyEvent(tabs[tabIndex], 36, true);
                             expect(document.activeElement).toBe(tabs[0]);
@@ -321,9 +321,51 @@
                                                  (tabPanelDisplay === "none") ||
                                                  (tabPanelVisibility === "hidden");
                             return !panelInvisible;
-                        }, "another something", 1000);
+                        }, "another something", 500);
                         runs(function () {
                             Helpers.verifyPanelVisibility(tabs[0]);
+                        });
+                    }());
+                };
+            });
+
+            it("the tab role element focus should move to the first tab as the user presses ctrl + end keys in the tabs", function () {
+                var tabs = document.querySelectorAll("*[role='tab']"),
+                    tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                    i, activeTabIndex;
+
+                for (var i = 0; i < tabs.length; i++) {
+                    (function () {
+                        var tabIndex = i;
+                        runs(function () {
+                            for(var j = 0; j < tabIndex; j++)
+                                Helpers.dispatchKeyEvent(tabs[j], 40, false);
+                        });
+                        waitsFor(function () {
+                            var tabPanelHidden = tabPanels[tabIndex].attributes.getNamedItem("aria-hidden"),
+                                tabPanelDisplay = window.getComputedStyle(tabPanels[tabIndex], null).getPropertyValue("display"),
+                                tabPanelVisibility = window.getComputedStyle(tabPanels[tabIndex], null).getPropertyValue("visibility"),
+                                panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                                 (tabPanelDisplay === "none") ||
+                                                 (tabPanelVisibility === "hidden");
+                            return !panelInvisible;
+                        }, "something", 500);
+                        runs(function () {
+                            Helpers.dispatchKeyEvent(tabs[tabIndex], 35, true);
+                            expect(document.activeElement).toBe(tabs[tabs.length - 1]);
+                        });
+                        waitsFor(function () {
+                            var tabPanelHidden = tabPanels[tabs.length - 1].attributes.getNamedItem("aria-hidden"),
+                                tabPanelDisplay = window.getComputedStyle(tabPanels[tabs.length - 1], null).getPropertyValue("display"),
+                                tabPanelVisibility = window.getComputedStyle(tabPanels[tabs.length - 1], null).getPropertyValue("visibility"),
+                                panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                                 (tabPanelDisplay === "none") ||
+                                                 (tabPanelVisibility === "hidden");
+                            return !panelInvisible;
+                        }, "another something", 500);
+                        runs(function () {
+                            Helpers.verifyPanelVisibility(tabs[tabs.length - 1]);
+                            Helpers.dispatchKeyEvent(tabs[tabs.length - 1], 40, false);
                         });
                     }());
                 };
