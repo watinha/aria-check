@@ -32,31 +32,31 @@
             for (i = 0; i < tabElements.length; i++) {
                 (function () {
                     var tabIndex = i,
-                        timer;
+                        timer,
+                        moveFocus = function (indexDelta) {
+                            var nextFocusable = (tabIndex + indexDelta) >= 0 ?
+                                (tabIndex + indexDelta) % tabElements.length : tabElements.length - 1;
+                            for (var j = 0; j < tabElements.length; j++) {
+                                if (j !== (nextFocusable)) {
+                                    tabElements[j].tabIndex = -1;
+                                } else {
+                                    tabElements[j].tabIndex = 0;
+                                }
+                            }
+                            tabElements[nextFocusable].focus();
+                        },
+                        updatePanelVisibility = function () {
+                            var panel = document.getElementById(document.activeElement.attributes.getNamedItem("aria-controls").textContent);
+                            for (var j = 0; j < tabPanelElements.length; j++) {
+                                var hidden = document.createAttribute("aria-hidden");
+                                hidden.nodeValue = 'true';
+                                tabPanelElements[j].style.display = "none";
+                                tabPanelElements[j].attributes.setNamedItem(hidden);
+                            }
+                            panel.style.display = "block";
+                            panel.attributes.removeNamedItem("aria-hidden");
+                        };
                     tabElements[tabIndex].addEventListener("keydown", function (ev) {
-                        var moveFocus = function (indexDelta) {
-                                var nextFocusable = (tabIndex + indexDelta) >= 0 ?
-                                    (tabIndex + indexDelta) % tabElements.length : tabElements.length - 1;
-                                for (var j = 0; j < tabElements.length; j++) {
-                                    if (j !== (nextFocusable)) {
-                                        tabElements[j].tabIndex = -1;
-                                    } else {
-                                        tabElements[j].tabIndex = 0;
-                                    }
-                                }
-                                tabElements[nextFocusable].focus();
-                            },
-                            updatePanelVisibility = function () {
-                                var panel = document.getElementById(document.activeElement.attributes.getNamedItem("aria-controls").textContent);
-                                for (var j = 0; j < tabPanelElements.length; j++) {
-                                    var hidden = document.createAttribute("aria-hidden");
-                                    hidden.nodeValue = 'true';
-                                    tabPanelElements[j].style.display = "none";
-                                    tabPanelElements[j].attributes.setNamedItem(hidden);
-                                }
-                                panel.style.display = "block";
-                                panel.attributes.removeNamedItem("aria-hidden");
-                            };
                         if (ev.keyCode === 40 || ev.keyCode === 39) {
                             moveFocus(1);
                             clearTimeout(timer);
@@ -72,12 +72,21 @@
                             }, 250);
                         }
                     }, false);
-                }());
-                (function () {
-                    var tabIndex = i;
                     tabPanelElements[tabIndex].addEventListener("keydown", function (ev) {
-                        if (ev.keyCode === 38 && ev.ctrlKey)
-                            tabElements[tabIndex].focus();
+                        switch (ev.keyCode) {
+                            case 38: {
+                                if (ev.ctrlKey)
+                                    tabElements[tabIndex].focus();
+                                break;
+                            }
+                            case 33: {
+                                if (ev.ctrlKey) {
+                                    moveFocus(-1);
+                                    updatePanelVisibility();
+                                }
+                                break;
+                            }
+                        }
                     }, false);
                 }());
             }

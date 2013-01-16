@@ -313,7 +313,22 @@
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 38, true);
                     expect(document.activeElement.attributes.getNamedItem("aria-controls").textContent).toBe(tabPanels[i].id);
-                    Helpers.verifyFocusChange(document, 40);
+                    Helpers.dispatchKeyEvent(document.activeElement, 40, false);
+                };
+            });
+
+            it("the focus should change to the previous tab element as the user is inside a tabpanel and press the ctrl + pageup key", function () {
+                var tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                    i, activeTabIndex;
+
+                document.body.tabIndex = 0;
+                for (var i = 0; i < 2; i++) {
+                    document.body.focus();
+                    Helpers.dispatchKeyEvent(tabPanels[i], 33, true);
+                    activeTabIndex = ((i - 1) < 0) ? (tabPanels.length - 1) : (i - 1);
+                    expect(document.activeElement.attributes.getNamedItem("aria-controls").textContent).toBe(tabPanels[activeTabIndex].id);
+                    Helpers.dispatchKeyEvent(document.activeElement, 40, false);
+                    Helpers.dispatchKeyEvent(document.activeElement, 40, false);
                 };
             });
 
