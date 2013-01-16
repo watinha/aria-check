@@ -329,7 +329,7 @@
                 };
             });
 
-            it("the tab role element focus should move to the first tab as the user presses ctrl + end keys in the tabs", function () {
+            it("the tab role element focus should move to the last tab as the user presses ctrl + end keys in the tabs", function () {
                 var tabs = document.querySelectorAll("*[role='tab']"),
                     tabPanels = document.querySelectorAll("*[role='tabpanel']"),
                     i, activeTabIndex;
