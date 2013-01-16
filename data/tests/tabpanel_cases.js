@@ -322,13 +322,26 @@
                     i, activeTabIndex;
 
                 document.body.tabIndex = 0;
-                for (var i = 0; i < 2; i++) {
+                for (var i = 0; i < tabPanels.length; i++) {
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 33, true);
                     activeTabIndex = ((i - 1) < 0) ? (tabPanels.length - 1) : (i - 1);
                     expect(document.activeElement.attributes.getNamedItem("aria-controls").textContent).toBe(tabPanels[activeTabIndex].id);
                     Helpers.dispatchKeyEvent(document.activeElement, 40, false);
                     Helpers.dispatchKeyEvent(document.activeElement, 40, false);
+                };
+            });
+
+            it("the focus should change to the next tab element as the user is inside a tabpanel and press the ctrl + pagedown key", function () {
+                var tabPanels = document.querySelectorAll("*[role='tabpanel']"),
+                    i, activeTabIndex;
+
+                document.body.tabIndex = 0;
+                for (var i = 0; i < tabPanels.length; i++) {
+                    document.body.focus();
+                    Helpers.dispatchKeyEvent(tabPanels[i], 34, true);
+                    activeTabIndex = (i + 1) % tabPanels.length;
+                    expect(document.activeElement.attributes.getNamedItem("aria-controls").textContent).toBe(tabPanels[activeTabIndex].id);
                 };
             });
 

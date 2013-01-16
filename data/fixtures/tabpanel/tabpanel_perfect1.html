@@ -597,7 +597,7 @@ tabpanel.prototype.handlePanelKeyDown = function($elem, e) {
 			}
 
 			// get the jQuery object of the tab
-			var $tab = $('#' + $elem.attr('aria-labelledby'));
+			var $tab = $('#tab' + $elem.attr('id').substr(5));
 
 			// get the index of the tab in the tab list
 			var curNdx = this.$tabs.index($tab);

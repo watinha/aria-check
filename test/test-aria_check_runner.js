@@ -157,16 +157,23 @@
         });
     };
 
-    exports["test 21 should identify that only one tabpanel should be visible"] = function (assert, done) {
+    exports["test 21 should focus tab element if ctrl + up arrow key are pressed in tabpanel"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy19.html", function (data) {
             assert.ok(!data.passed, "ctrl + up arrow key should move the focus to the tab");
             done();
         });
     };
 
-    exports["test 22 should identify that only one tabpanel should be visible"] = function (assert, done) {
+    exports["test 22 should focus previous tab if ctrl + pageup keys are pressed in tabpanel"] = function (assert, done) {
         TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy20.html", function (data) {
             assert.ok(!data.passed, "ctrl + pageup arrow key should move the focus to the previous tab");
+            done();
+        });
+    };
+
+    exports["test 23 should focus next tab if ctrl + pagedown keys are pressed in tabpanel"] = function (assert, done) {
+        TestHelpers.check_report(assert, done, "fixtures/tabpanel/tabpanel_dummy21.html", function (data) {
+            assert.ok(!data.passed, "ctrl + pagedown arrow key should move the focus to the next tab");
             done();
         });
     };
