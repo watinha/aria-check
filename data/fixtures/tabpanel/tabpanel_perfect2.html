@@ -73,7 +73,10 @@
                         }
                         if (ev.keyCode === 36 && ev.ctrlKey) {
                             moveFocus(-tabIndex);
-                            updatePanelVisibility();
+                            clearTimeout(timer);
+                            timer = setTimeout(function () {
+                                updatePanelVisibility();
+                            }, 250);
                         }
                     }, false);
                     tabPanelElements[tabIndex].addEventListener("keydown", function (ev) {

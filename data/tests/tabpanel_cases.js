@@ -312,6 +312,17 @@
                         runs(function () {
                             Helpers.dispatchKeyEvent(tabs[tabIndex], 36, true);
                             expect(document.activeElement).toBe(tabs[0]);
+                        });
+                        waitsFor(function () {
+                            var tabPanelHidden = tabPanels[0].attributes.getNamedItem("aria-hidden"),
+                                tabPanelDisplay = window.getComputedStyle(tabPanels[0], null).getPropertyValue("display"),
+                                tabPanelVisibility = window.getComputedStyle(tabPanels[0], null).getPropertyValue("visibility"),
+                                panelInvisible = (tabPanelHidden && tabPanelHidden.textContent === "true") ||
+                                                 (tabPanelDisplay === "none") ||
+                                                 (tabPanelVisibility === "hidden");
+                            return !panelInvisible;
+                        }, "another something", 1000);
+                        runs(function () {
                             Helpers.verifyPanelVisibility(tabs[0]);
                         });
                     }());
