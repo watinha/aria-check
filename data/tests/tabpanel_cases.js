@@ -293,6 +293,9 @@
                     tabPanels = document.querySelectorAll("*[role='tabpanel']"),
                     i, activeTabIndex;
 
+                expect(tabs.length).not.toBe(0);
+                expect(tabPanels.length).not.toBe(0);
+                expect(tabs.length).toBe(tabPanels.length);
                 for (var i = 0; i < tabs.length; i++) {
                     (function () {
                         var tabIndex = i;
@@ -334,6 +337,9 @@
                     tabPanels = document.querySelectorAll("*[role='tabpanel']"),
                     i, activeTabIndex;
 
+                expect(tabs.length).not.toBe(0);
+                expect(tabPanels.length).not.toBe(0);
+                expect(tabs.length).toBe(tabPanels.length);
                 for (var i = 0; i < tabs.length; i++) {
                     (function () {
                         var tabIndex = i;
@@ -392,6 +398,7 @@
                     i;
 
                 document.body.tabIndex = 0;
+                expect(tabPanels.length).not.toBe(0);
                 for (var i = 0; i < tabPanels.length; i++) {
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 38, true);
@@ -405,6 +412,7 @@
                     i, activeTabIndex;
 
                 document.body.tabIndex = 0;
+                expect(tabPanels.length).not.toBe(0);
                 for (var i = 0; i < tabPanels.length; i++) {
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 33, true);
@@ -420,6 +428,7 @@
                     i, activeTabIndex;
 
                 document.body.tabIndex = 0;
+                expect(tabPanels.length).not.toBe(0);
                 for (var i = 0; i < tabPanels.length; i++) {
                     document.body.focus();
                     Helpers.dispatchKeyEvent(tabPanels[i], 34, true);
