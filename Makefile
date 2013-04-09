@@ -2,6 +2,7 @@
 export CFX_MISSING_MESSAGE="you need to set the Addon-SDK in your shell..."
 export IS_CFX_SET=`which cfx`
 export PROFILEDIR=dev_profile
+export CFX_FLAGS="--suppress-web-console"
 
 help:
 	@echo "****************************************************"
@@ -25,7 +26,7 @@ help:
 
 tests:
 	@if [ $(IS_CFX_SET) ]; then\
-		cfx test --profiledir=$(PROFILEDIR) --suppress-web-console;\
+		cfx test --profiledir=$(PROFILEDIR) $(CFX_FLAGS);\
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
