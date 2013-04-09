@@ -1,9 +1,19 @@
 (function () {
     'use strict';
 
+    var widget_stub = {
+        Widget: function () {
+            return {
+                id: "aria-check-widget",
+                label: "aria-check",
+                width: 120
+            };
+        }
+    };
+
     exports["test init should be a singleton for widgets objects"] = function (assert) {
-        var app1 = require("app").create_app(),
-            app2 = require("app").create_app();
+        var app1 = require("app").create_app(widget_stub),
+            app2 = require("app").create_app(widget_stub);
 
         app1.init();
         app2.init();
@@ -12,7 +22,7 @@
     };
 
     exports["test init should instantiate a widget object with the correct parameters"] = function (assert) {
-        var app = require("app").create_app();
+        var app = require("app").create_app(widget_stub);
         app.init();
         assert.ok(app.widget, "widget object should be set");
         assert.equal("aria-check-widget", app.widget.id);
@@ -23,7 +33,7 @@
     exports["test init should include jasmine in pages"] = function (assert, done) {
         var tabs = require("tabs"),
             self = require("self"),
-            app = require("app").create_app();
+            app = require("app").create_app(widget_stub);
         app.init();
         tabs.open({
             url: self.data.url("fixtures/tabpanel/tabpanel_dummy.html"),
@@ -62,7 +72,7 @@
     exports["test should not include two jasmine reporters in the same page"] = function (assert, done) {
         var tabs = require("tabs"),
             self = require("self"),
-            app = require("app").create_app();
+            app = require("app").create_app(widget_stub);
         app.init();
         //assert.waitUntilDone(30000);
         tabs.open({
@@ -99,5 +109,5 @@
         });
     };
 
-    require("test").run(exports);
+    require("sdk/test").run(exports);
 }());

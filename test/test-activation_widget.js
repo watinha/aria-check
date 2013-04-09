@@ -26,5 +26,5 @@
         assert.ok(callbackCalled);
     };
 
-    require("test").run(exports);
+    require("sdk/test").run(exports);
 }());
