@@ -9,6 +9,7 @@
   <script type="text/javascript" src="../../jasmine/js/jasmine-html.js"></script>
   <script type="text/javascript" charset="utf-8" src="../js/lib.js"></script>
   <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../../tests/tabpanel_cases.js"></script>
   <link rel="stylesheet" href="../css/tab.css" type="text/css" media="screen" charset="utf-8" />
   <link rel="stylesheet" href="../css/general.css" type="text/css" media="screen" charset="utf-8" />
 </head>
@@ -23,7 +24,7 @@
 <div id="tabpanel1" class="tabpanel">
 
 	<ul class="tablist" role="tablist">
-		<li id="tab1" class="tab selected" aria-controls="panel1" role="tab">Crust</li>
+		<li id="tab1" class="tab selected" tabindex=0 aria-controls="panel1" role="tab">Crust</li>
 		<li id="tab2" class="tab" aria-controls="panel2" role="tab">Veggies</li>
 		<li id="tab3" class="tab" aria-controls="panel3" role="tab">Carnivore</li>
 		<li id="tab4" class="tab" aria-controls="panel4" role="tab">Delivery</li>
@@ -706,32 +707,34 @@ describe("Something cool", function() {
 </script>
 
 <script type="text/javascript" charset="utf-8">
-(function() {
-  var jasmineEnv = jasmine.getEnv();
-  jasmineEnv.updateInterval = 1000;
+$(document).ready(function() {
+    (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
 
-  var htmlReporter = new jasmine.HtmlReporter();
+      var htmlReporter = new jasmine.HtmlReporter();
 
-  jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.addReporter(htmlReporter);
 
-  jasmineEnv.specFilter = function(spec) {
-    return htmlReporter.specFilter(spec);
-  };
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
 
-  var currentWindowOnload = window.onload;
+      var currentWindowOnload = window.onload;
 
-  window.onload = function() {
-    if (currentWindowOnload) {
-      currentWindowOnload();
-    }
-    execJasmine();
-  };
+      window.onload = function() {
+        if (currentWindowOnload) {
+          currentWindowOnload();
+        }
+        execJasmine();
+      };
 
-  function execJasmine() {
-    jasmineEnv.execute();
-  }
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
 
-})();
+    })();
+});
 </script>
 </body>
 </html>
