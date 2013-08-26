@@ -2,8 +2,8 @@
     "use strict";
     var TestHelpers = {
         check_report: function (assert, done, fixture, report_handler) {
-            var tabs = require("tabs"),
-                self = require("self"),
+            var tabs = require("sdk/tabs"),
+                self = require("sdk/self"),
                 aria_check_runner = require("aria_check_runner");
 
             tabs.open({
