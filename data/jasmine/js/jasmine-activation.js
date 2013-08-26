@@ -1,6 +1,9 @@
 (function() {
     "use strict";
 
+    if (document.querySelector(".jasmine_reporter"))
+        return ;
+
     describe("Jasmine environment checking", function () {
         it("environment should be running OK, start testing", function () {
             expect(jasmine).toBeDefined();
