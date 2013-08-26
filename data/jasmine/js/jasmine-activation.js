@@ -24,15 +24,19 @@
         jasmineEnv.execute();
 
         /**
-          * sends a json reporter back to chrome privileged scripts
+          * pooling reports from jasmine
           */
         (function () {
             var jsReport,
                 verifyReporter = function () {
-                    if (jasmine.getJSReport)
-                        self.port.emit("jasmine_report", jasmine.getJSReport());
-                    else
-                        setTimeout(verifyReporter, 2000);
+                    if (jasmine && jasmine.getJSReport) {
+                        var div_report = document.createElement("div");
+                        div_report.style.display = "none";
+                        div_report.id = "json_report";
+                        div_report.innerHTML = jasmine.getJSReport().passed;
+                        document.body.appendChild(div_report);
+                    } else
+                        setTimeout(verifyReporter, 200);
                 };
             verifyReporter();
         })();
@@ -59,4 +63,3 @@
         }());
     }());
 })();
-
