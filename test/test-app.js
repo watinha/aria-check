@@ -31,8 +31,8 @@
     };
 
     exports["test init should include jasmine in pages"] = function (assert, done) {
-        var tabs = require("tabs"),
-            self = require("self"),
+        var tabs = require("sdk/tabs"),
+            self = require("sdk/self"),
             app = require("app").create_app(widget_stub);
         app.init();
         tabs.open({
@@ -70,8 +70,8 @@
     };
 
     exports["test should not include two jasmine reporters in the same page"] = function (assert, done) {
-        var tabs = require("tabs"),
-            self = require("self"),
+        var tabs = require("sdk/tabs"),
+            self = require("sdk/self"),
             app = require("app").create_app(widget_stub);
         app.init();
         //assert.waitUntilDone(30000);

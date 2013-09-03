@@ -2,7 +2,7 @@
 export CFX_MISSING_MESSAGE="you need to set the Addon-SDK in your shell..."
 export IS_CFX_SET=`which cfx`
 export PROFILEDIR=dev_profile
-export CFX_FLAGS="--suppress-web-console"
+export CFX_FLAGS="--stop-on-error"
 
 help:
 	@echo "****************************************************"
