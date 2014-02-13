@@ -3,6 +3,8 @@ export CFX_MISSING_MESSAGE="you need to set the Addon-SDK in your shell..."
 export IS_CFX_SET=`which cfx`
 export PROFILEDIR=dev_profile
 export CFX_FLAGS="--stop-on-error"
+export PATH_FIXTURES="data/fixtures/tabpanel"
+export RUN_SELENIUM_TESTS="bin/selenium_aria_check.sh"
 
 help:
 	@echo "****************************************************"
@@ -22,6 +24,7 @@ help:
 	@echo "    \033[32mdeploy:\033[0m   - not sure if there is a automatic"
 	@echo "                way of doing this, but lets keep"
 	@echo "                if because it is cool"
+	@echo "    \033[32mselenium-tests:\033[0m   using true events"
 	@echo "\n"
 
 tests:
@@ -30,6 +33,10 @@ tests:
 	else\
 		echo $(CFX_MISSING_MESSAGE);\
 	fi
+
+selenium-tests:
+	@./bin/run_python_tests.sh $(PATH_FIXTURES) $(RUN_SELENIUM_TESTS)
+
 
 jslint:
 	@./bin/run_jslintr.sh
@@ -63,4 +70,4 @@ deploy:
 dev:
 	./bin/setup.sh
 
-.PHONY: help tests jslint run build docs deploy dev
+.PHONY: help tests jslint run build docs deploy dev selenium-tests
