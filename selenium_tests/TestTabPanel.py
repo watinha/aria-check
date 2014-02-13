@@ -53,15 +53,59 @@ class TestRolesVerifications (unittest.TestCase):
         self.assertEquals(len(interactive_tabs), 1)
 
 
-    @unittest.skip("demonstrating skipping")
-    def test_is_there_only_one_tabpanel_which_is_visible (self):
-        tabs = self.browser.find_elements_by_css_selector("[role=tabpanel]")
-        interactive_tabs = []
+    def test_if_there_is_a_label_for_each_tab (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
         for tab in tabs:
-            if int(tab.get_attribute("tabIndex")) >= 0:
-                interactive_tabs.append(tab)
+            self.assertNotEquals(str(tab.text), "")
 
-        self.assertEquals(len(interactive_tabs), 1)
+
+    def test_is_there_an_association_between_all_tabs_and_tabpanels (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+        associated = []
+
+        for tab in tabs:
+            for tabpanel in tabpanels:
+                if str(tab.get_attribute("aria-controls")) == str(tabpanel.get_attribute("id")):
+                    associated.append(tab)
+
+        self.assertEquals(len(associated), len(tabs))
+        self.assertEquals(len(tabs), len(tabpanels))
+        self.assertGreaterEqual(len(tabs), 1)
+
+
+    def test_all_tabpanels_present_text_alternative_attributes (self):
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+
+        for tabpanel in tabpanels:
+            title = tabpanel.get_attribute("title")
+            aria_label = tabpanel.get_attribute("aria-label")
+            aria_labelledby = tabpanel.get_attribute("aria-labelledby")
+            aria_describedby = tabpanel.get_attribute("aria-describedby")
+            self.assertTrue(title or aria_label or aria_labelledby or aria_describedby,
+                            "there should be a text alternative for each tabpanel")
+
+        self.assertGreaterEqual(len(tabpanels), 1)
+
+    def test_is_the_only_visible_tabpanel_associated_with_the_active_tab (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+        active_tab = []
+
+        for tab in tabs:
+            if (int(tab.get_attribute("tabIndex")) >= 0):
+                active_tab.append(tab)
+
+        self.assertEquals(len(active_tab), 1)
+
+        for tabpanel in tabpanels:
+            if str(tabpanel.get_attribute("id")) == str(active_tab[0].get_attribute("aria-controls")):
+                self.assertTrue(tabpanel.get_attribute("aria-hidden") and tabpanel.is_displayed(),
+                                "active tab associated tabpanel should be visible")
+            else:
+                self.assertTrue(str(tabpanel.get_attribute("aria-hidden") == "true") or not tabpanel.is_displayed(),
+                                "other tabpanels should be invisible to assistive technologies")
+
 
 
     @classmethod
