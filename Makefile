@@ -5,6 +5,7 @@ export PROFILEDIR=dev_profile
 export CFX_FLAGS="--stop-on-error"
 export PATH_FIXTURES="data/fixtures/tabpanel"
 export RUN_SELENIUM_TESTS="bin/selenium_aria_check.sh"
+export PATH_SELENIUM_TESTS="selenium_tests"
 
 help:
 	@echo "****************************************************"
@@ -35,8 +36,7 @@ tests:
 	fi
 
 selenium-tests:
-	@./bin/run_python_tests.sh $(PATH_FIXTURES) $(RUN_SELENIUM_TESTS)
-
+	@./bin/run_python_tests.sh $(PATH_FIXTURES) $(RUN_SELENIUM_TESTS) $(PATH_SELENIUM_TESTS)
 
 jslint:
 	@./bin/run_jslintr.sh

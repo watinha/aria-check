@@ -1,2 +1,3 @@
 #!/bin/sh
-python -m unittest
+export URL=$1
+python -m unittest discover -s $2 -p '*.py'
