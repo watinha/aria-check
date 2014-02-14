@@ -253,10 +253,9 @@ class TestRolesVerifications (unittest.TestCase):
             Keys.LEFT_CONTROL, Keys.ARROW_UP, 0, Keys.ARROW_DOWN)
 
 
-    def test_20_behavior_ctrl_pagedown_in_panel_set_focus_to_the_next_tab_element (self):
+    def test_20_behavior_ctrl_pageup_in_panel_set_focus_to_the_previous_tab_element (self):
         self._dispatch_keys_in_panel_and_check_which_tab_is_focused(
-            Keys.LEFT_CONTROL, Keys.PAGE_DOWN, 1, Keys.ARROW_DOWN)
-
+            Keys.LEFT_CONTROL, Keys.PAGE_UP, -1, Keys.NULL)
 
 
 
