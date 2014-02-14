@@ -99,11 +99,12 @@ class TestRolesVerifications (unittest.TestCase):
         self.assertEquals(len(active_tab), 1)
 
         for tabpanel in tabpanels:
+            aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
             if str(tabpanel.get_attribute("id")) == str(active_tab[0].get_attribute("aria-controls")):
-                self.assertTrue(tabpanel.get_attribute("aria-hidden") and tabpanel.is_displayed(),
+                self.assertTrue((aria_hidden == "False" or aria_hidden == "None") and tabpanel.is_displayed(),
                                 "active tab associated tabpanel should be visible")
             else:
-                self.assertTrue(str(tabpanel.get_attribute("aria-hidden") == "true") or not tabpanel.is_displayed(),
+                self.assertTrue(aria_hidden == "true" or aria_hidden == "True" or not tabpanel.is_displayed(),
                                 "other tabpanels should be invisible to assistive technologies")
 
 
@@ -111,3 +112,5 @@ class TestRolesVerifications (unittest.TestCase):
     @classmethod
     def tearDownClass(self):
         self.browser.quit()
+
+
