@@ -12,7 +12,7 @@ class TestRolesVerifications (unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.browser = webdriver.Firefox()
-        self.browser.get("file://" + os.environ.get("PWD") + "/" + os.environ.get("URL"))
+        self.browser.get(os.environ.get("URL"))
 
 
     def test_01_roles_are_there_tabs (self):
