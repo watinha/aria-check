@@ -155,6 +155,13 @@ class TestRolesVerifications (unittest.TestCase):
         self._dispatch_key_and_focus_change(Keys.ARROW_UP, active_index, tabs, -1)
 
 
+    def test_left_arrow_in_tabs_change_active_tab (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        active_index = self._set_focus_on_active_tab(tabs)
+
+        self._dispatch_key_and_focus_change(Keys.ARROW_LEFT, active_index, tabs, -1)
+
+
     @classmethod
     def tearDownClass(self):
         self.browser.quit()
