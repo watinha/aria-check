@@ -102,7 +102,7 @@ class TestRolesVerifications (unittest.TestCase):
         for tabpanel in tabpanels:
             aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
             if str(tabpanel.get_attribute("id")) == str(active_tab[0].get_attribute("aria-controls")):
-                self.assertTrue((aria_hidden == "False" or aria_hidden == "None") and tabpanel.is_displayed(),
+                self.assertTrue((aria_hidden == "False" or aria_hidden == "false" or aria_hidden == "None") and tabpanel.is_displayed(),
                                 "active tab associated tabpanel should be visible")
             else:
                 self.assertTrue(aria_hidden == "true" or aria_hidden == "True" or not tabpanel.is_displayed(),
@@ -170,7 +170,7 @@ class TestRolesVerifications (unittest.TestCase):
             aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
             if str(tabpanel.get_attribute("id")) == str(tabs[(active_index + increment)
                                                         % len(tabpanels)].get_attribute("aria-controls")):
-                self.assertTrue((aria_hidden == "False" or aria_hidden == "None") and tabpanel.is_displayed(),
+                self.assertTrue((aria_hidden == "False" or aria_hidden == "false" or aria_hidden == "None") and tabpanel.is_displayed(),
                                 "active tab associated tabpanel should be visible")
             else:
                 self.assertTrue(aria_hidden == "true" or aria_hidden == "True" or not tabpanel.is_displayed(),
@@ -198,6 +198,14 @@ class TestRolesVerifications (unittest.TestCase):
 
         for i in range(0, len(tabs)):
             self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_UP, -1)
+
+
+    def test_18_behavior_left_arrow_in_tabs_change_tabpanel_visibility (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+
+        for i in range(0, len(tabs)):
+            self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_LEFT, -1)
 
 
 
