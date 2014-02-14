@@ -207,12 +207,7 @@ class TestRolesVerifications (unittest.TestCase):
         for i in range(0, len(tabs)):
             self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_LEFT, -1)
 
-
-    def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
-        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
-        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
-        self.browser.implicitly_wait(30)
-
+    def _make_all_tabpanels_focusable (self):
         script = """
                 (function () {
                     var tabpanels = document.querySelectorAll("[role=tabpanel]");
@@ -222,11 +217,19 @@ class TestRolesVerifications (unittest.TestCase):
                 """
         self.browser.execute_script(script)
 
+    def _set_focus_to_the_active_tabpanel_element (self, tabs, active_index):
+        active_tabpanel = self.browser.find_element_by_id(
+            str(tabs[active_index].get_attribute("aria-controls")))
+        active_tabpanel.send_keys(Keys.NULL)
+        return active_tabpanel
+
+    def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        self._make_all_tabpanels_focusable()
+
         for i in range(0, len(tabs)):
             active_index = self._set_focus_on_active_tab(tabs)
-            active_tabpanel = self.browser.find_element_by_id(
-                str(tabs[active_index].get_attribute("aria-controls")))
-            active_tabpanel.send_keys(Keys.NULL)
+            active_tabpanel = self._set_focus_to_the_active_tabpanel_element(tabs, active_index)
             active_tabpanel.send_keys(Keys.LEFT_CONTROL, Keys.ARROW_UP)
 
             focused_element = self.browser.find_element_by_css_selector("*:focus")
