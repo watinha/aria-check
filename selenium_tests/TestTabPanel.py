@@ -208,6 +208,32 @@ class TestRolesVerifications (unittest.TestCase):
             self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_LEFT, -1)
 
 
+    def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+        self.browser.implicitly_wait(30)
+
+        script = """
+                (function () {
+                    var tabpanels = document.querySelectorAll("[role=tabpanel]");
+                    for (var i = 0; i < tabpanels.length; i++)
+                        tabpanels[i].tabIndex = 0;
+                })();
+                """
+        self.browser.execute_script(script)
+
+        for i in range(0, len(tabs)):
+            active_index = self._set_focus_on_active_tab(tabs)
+            active_tabpanel = self.browser.find_element_by_id(
+                str(tabs[active_index].get_attribute("aria-controls")))
+            active_tabpanel.send_keys(Keys.NULL)
+            active_tabpanel.send_keys(Keys.LEFT_CONTROL, Keys.ARROW_UP)
+
+            focused_element = self.browser.find_element_by_css_selector("*:focus")
+            self.assertEquals(focused_element, tabs[active_index],
+                "the focus is not set to the active tab element")
+            focused_element.send_keys(Keys.ARROW_DOWN)
+
 
     @classmethod
     def tearDownClass(self):
