@@ -183,6 +183,14 @@ class TestRolesVerifications (unittest.TestCase):
             self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_DOWN)
 
 
+    def test_16_behavior_right_arrow_in_tabs_change_tabpanel_visibility (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+
+        for i in range(0, len(tabs)):
+            self._type_arrow_key_and_verify_panel_visibility(tabs, tabpanels, Keys.ARROW_RIGHT)
+
+
 
     @classmethod
     def tearDownClass(self):
