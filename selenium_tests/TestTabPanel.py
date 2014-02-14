@@ -2,6 +2,7 @@ import unittest
 import os
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 class TestRolesVerifications (unittest.TestCase):
 
@@ -107,6 +108,33 @@ class TestRolesVerifications (unittest.TestCase):
                 self.assertTrue(aria_hidden == "true" or aria_hidden == "True" or not tabpanel.is_displayed(),
                                 "other tabpanels should be invisible to assistive technologies")
 
+    def _dispatch_key_and_focus_change (self, key, active_index, tabs):
+        for j in range(0, len(tabs)):
+            tabs[active_index].send_keys(key)
+
+            for i in range(0, len(tabs)):
+                if (int(tabs[i].get_attribute("tabIndex")) >= 0):
+                    newly_active_tab = tabs[i]
+                    newly_active_tab_index = i
+
+            self.assertNotEquals(newly_active_tab, tabs[active_index], "active tab should be different after pressing down arrow")
+            self.assertEquals(newly_active_tab_index, (active_index + 1) % len(tabs), "active tab should be the next one")
+
+            active_index = newly_active_tab_index
+
+
+    def test_down_arrow_in_tabs_change_active_tab_and_tabpanel_visibility (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
+
+        for i in range(0, len(tabs)):
+            if (int(tabs[i].get_attribute("tabIndex")) >= 0):
+                active_tab = tabs[i]
+                active_index = i
+
+        active_tab.send_keys(Keys.NULL)
+
+        self._dispatch_key_and_focus_change(Keys.ARROW_DOWN, active_index, tabs)
 
 
     @classmethod
