@@ -122,17 +122,18 @@ class TestRolesVerifications (unittest.TestCase):
 
             active_index = newly_active_tab_index
 
-
-    def test_down_arrow_in_tabs_change_active_tab_and_tabpanel_visibility (self):
-        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
-        tabpanels = self.browser.find_elements_by_css_selector("[role=tabpanel]")
-
+    def _set_focus_on_active_tab (self, tabs):
         for i in range(0, len(tabs)):
             if (int(tabs[i].get_attribute("tabIndex")) >= 0):
-                active_tab = tabs[i]
                 active_index = i
 
-        active_tab.send_keys(Keys.NULL)
+        tabs[active_index].send_keys(Keys.NULL)
+        return active_index
+
+
+    def test_down_arrow_in_tabs_change_active_tab (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        active_index = self._set_focus_on_active_tab(tabs)
 
         self._dispatch_key_and_focus_change(Keys.ARROW_DOWN, active_index, tabs)
 
