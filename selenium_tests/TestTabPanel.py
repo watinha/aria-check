@@ -223,19 +223,23 @@ class TestRolesVerifications (unittest.TestCase):
         active_tabpanel.send_keys(Keys.NULL)
         return active_tabpanel
 
-    def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
+    def _dispatch_keys_in_panel_and_check_which_tab_is_focused (self, key1, key2, increment, key3):
         tabs = self.browser.find_elements_by_css_selector("[role=tab]")
         self._make_all_tabpanels_focusable()
 
         for i in range(0, len(tabs)):
             active_index = self._set_focus_on_active_tab(tabs)
             active_tabpanel = self._set_focus_to_the_active_tabpanel_element(tabs, active_index)
-            active_tabpanel.send_keys(Keys.LEFT_CONTROL, Keys.ARROW_UP)
+            active_tabpanel.send_keys(key1, key2)
 
             focused_element = self.browser.find_element_by_css_selector("*:focus")
-            self.assertEquals(focused_element, tabs[active_index],
+            self.assertEquals(focused_element, tabs[(active_index + increment) % len(tabs)],
                 "the focus is not set to the active tab element")
-            focused_element.send_keys(Keys.ARROW_DOWN)
+            focused_element.send_keys(key3)
+
+    def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
+        self._dispatch_keys_in_panel_and_check_which_tab_is_focused(
+            Keys.LEFT_CONTROL, Keys.ARROW_UP, 0, Keys.ARROW_DOWN)
 
 
     @classmethod
