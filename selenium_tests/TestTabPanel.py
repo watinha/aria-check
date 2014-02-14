@@ -3,6 +3,9 @@ import os
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class TestRolesVerifications (unittest.TestCase):
 
@@ -163,16 +166,22 @@ class TestRolesVerifications (unittest.TestCase):
 
     def _type_arrow_key_and_verify_panel_visibility (self, tabs, tabpanels, key, increment = 1):
         active_index = self._set_focus_on_active_tab(tabs)
+        wait = WebDriverWait(self.browser, 3)
 
         tabs[active_index].send_keys(key)
 
         for tabpanel in tabpanels:
-            aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
             if str(tabpanel.get_attribute("id")) == str(tabs[(active_index + increment)
                                                         % len(tabpanels)].get_attribute("aria-controls")):
-                self.assertTrue((aria_hidden == "False" or aria_hidden == "false" or aria_hidden == "None") and tabpanel.is_displayed(),
+                wait.until(EC.visibility_of_element_located((By.ID, str(tabpanel.get_attribute("id")))))
+                aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
+                self.assertTrue((aria_hidden == "False" or
+                                 aria_hidden == "false" or
+                                 aria_hidden == "None") and tabpanel.is_displayed(),
                                 "active tab associated tabpanel should be visible")
             else:
+                wait.until(EC.invisibility_of_element_located((By.ID, str(tabpanel.get_attribute("id")))))
+                aria_hidden = str(tabpanel.get_attribute("aria-hidden"))
                 self.assertTrue(aria_hidden == "true" or aria_hidden == "True" or not tabpanel.is_displayed(),
                                 "other tabpanels should be invisible to assistive technologies")
 
@@ -218,8 +227,10 @@ class TestRolesVerifications (unittest.TestCase):
         self.browser.execute_script(script)
 
     def _set_focus_to_the_active_tabpanel_element (self, tabs, active_index):
+        wait = WebDriverWait(self.browser, 3)
         active_tabpanel = self.browser.find_element_by_id(
             str(tabs[active_index].get_attribute("aria-controls")))
+        wait.until(EC.visibility_of_element_located((By.ID, str(active_tabpanel.get_attribute("id")))))
         active_tabpanel.send_keys(Keys.NULL)
         return active_tabpanel
 
@@ -240,6 +251,13 @@ class TestRolesVerifications (unittest.TestCase):
     def test_19_behavior_ctrl_up_in_panel_set_focus_to_the_active_tab_element (self):
         self._dispatch_keys_in_panel_and_check_which_tab_is_focused(
             Keys.LEFT_CONTROL, Keys.ARROW_UP, 0, Keys.ARROW_DOWN)
+
+
+    def test_20_behavior_ctrl_pagedown_in_panel_set_focus_to_the_next_tab_element (self):
+        self._dispatch_keys_in_panel_and_check_which_tab_is_focused(
+            Keys.LEFT_CONTROL, Keys.PAGE_DOWN, 1, Keys.ARROW_DOWN)
+
+
 
 
     @classmethod
