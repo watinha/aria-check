@@ -258,6 +258,11 @@ class TestRolesVerifications (unittest.TestCase):
             Keys.LEFT_CONTROL, Keys.PAGE_UP, -1, Keys.NULL)
 
 
+    def test_21_behavior_ctrl_pagedown_in_panel_set_focus_to_the_next_tab_element (self):
+        self._dispatch_keys_in_panel_and_check_which_tab_is_focused(
+            Keys.LEFT_CONTROL, Keys.PAGE_DOWN, 1, Keys.NULL)
+
+
 
     @classmethod
     def tearDownClass(self):
