@@ -279,7 +279,7 @@ class TestRolesVerifications (unittest.TestCase):
             active_index = self._set_focus_on_active_tab(tabs)
             self.assertEquals(active_index, 0)
 
-    def test_23_behavior_ctrl_home_in_tab_set_focus_to_the_first_tab_element (self):
+    def test_23_behavior_ctrl_end_in_tab_set_focus_to_the_first_tab_element (self):
         tabs = self.browser.find_elements_by_css_selector("[role=tab]")
         active_index = self._set_focus_on_active_tab(tabs)
 
