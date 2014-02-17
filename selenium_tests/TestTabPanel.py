@@ -1,5 +1,6 @@
 import unittest
 import os
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -125,14 +126,16 @@ class TestRolesVerifications (unittest.TestCase):
         for j in range(0, len(tabs)):
             tabs[active_index].send_keys(key)
 
+            time.sleep(1)
+
             for i in range(0, len(tabs)):
                 if (int(tabs[i].get_attribute("tabIndex")) >= 0):
                     newly_active_tab = tabs[i]
                     newly_active_tab_index = i
 
             self.assertNotEquals(newly_active_tab, tabs[active_index],
-                "active tab should be different after pressing arrow arrow keys")
-            self.assertEquals(newly_active_tab_index, (active_index + increment) % len(tabs), "active tab should be the next one")
+                "active tab should be different after pressing arrow keys")
+            self.assertEquals(newly_active_tab_index, (active_index + increment) % len(tabs))
 
             active_index = newly_active_tab_index
 
@@ -263,6 +266,18 @@ class TestRolesVerifications (unittest.TestCase):
             Keys.LEFT_CONTROL, Keys.PAGE_DOWN, 1, Keys.NULL)
 
 
+    def test_22_behavior_ctrl_home_in_tab_set_focus_to_the_first_tab_element (self):
+        tabs = self.browser.find_elements_by_css_selector("[role=tab]")
+        active_index = self._set_focus_on_active_tab(tabs)
+
+        for i in range(1, len(tabs)):
+            for j in range(1, i):
+                tabs[active_index].send_keys(Keys.ARROW_DOWN)
+                active_index = self._set_focus_on_active_tab(tabs)
+            tabs[active_index].send_keys(Keys.LEFT_CONTROL, Keys.HOME)
+
+            active_index = self._set_focus_on_active_tab(tabs)
+            self.assertEquals(active_index, 0)
 
     @classmethod
     def tearDownClass(self):
